@@ -1,0 +1,306 @@
+# NOTE: This is a sample channels table for use with mythupchuk.
+#       Please check it carefully before using it to to update your database.
+#
+# Channels table for use by mythupchuk, created 201208120107
+# vim:ts=12
+#
+# DON'T EDIT SOURCEID OR SERVICEID unless you know what you're doing !!!
+# And be careful editing NAME otherwise it won't match its XMLTVID
+#
+# Blank lines and lines beginning with '#' are ignored,
+# except for lines beginning with '#x' which indicates a channel that is 
+# no longer in the database: such a line will be automatically un-commented
+# if the channel reappears in the database (after a re-tune, for example).
+#
+#sourceid	serviceid	channum	visible	delete	callsign	name	xmltvid	icon
+
+# Source 1: Freesat
+
+# BBC
+1	10353	1	1	0	BBC ONE	BBC 1 South
+1	6302	2	1	0	BBC TWO	BBC 2 England
+1	6319	3	1	0	BBC THREE	BBC THREE
+1	6416	4	1	0	BBC FOUR	BBC FOUR
+# ITV
+1	10140	11	1	0	ITV1	ITV1 Meridian S
+1	10070	12	1	0	ITV2	ITV2
+1	10260	13	1	0	ITV3	ITV3
+1	10072	14	1	0	ITV4	ITV4
+1	10265	15	1	0	ITV1+1	ITV1+1
+1	10165	16	1	0	ITV2+1	ITV2+1
+1	10261	17	1	0	ITV3+1	ITV3+1
+1	10015	18	1	0	ITV4+1	ITV4+1
+1	10000	19	1	0	ITV1 HD	ITV1 HD
+# Kids' stuff
+1	6418	21	1	0	CBeebies	CBeebies
+1	6317	22	1	0	CBBC	CBBC Channel
+1	10071	23	1	0	CITV	CITV
+# Channel 4
+1	9211	40	1	0	Channel 4	Channel 4
+1	8311	41	1	0	Channel 4+1	Channel 4 +1
+1	9220	42	1	0	Film4	Film4
+1	9225	43	1	0	Film4+1	Film4 +1
+1	8305	44	1	0	E4	E4
+1	8300	45	1	0	E4+1	E4+1
+1	8340	46	1	0	More4	More4
+1	9230	47	1	0	More4 +1	More4 +1
+1	9208	48	1	0	e4	e4
+1	21200	49	1	0	Channel 4 HD	Channel 4 HD
+# Channel 5
+1	7700	50	1	0	Channel 5	Channel 5
+1	7720	51	1	0	Channel 5+1	Channel 5+1
+1	7715	52	1	0	5*	5*
+1	7716	53	1	0	5* +1	5* +1
+1	7710	54	1	0	5 USA	5 USA
+1	7711	55	1	0	5 USA +1	5 USA +1
+# New channels
+1	6405	60	1	0	BBC NEWS	BBC NEWS
+1	10307	61	1	0	BBC PARL	BBC PARL'MNT
+1	50847	62	1	0	Russ Tdy	Russia Today
+1	55280	63	1	0	Euronews	Euronews
+1	52570	64	1	0	FRANCE 24	FRANCE 24
+1	51011	65	1	0	CCTV News	CCTV News
+1	52111	66	1	0	CNBC	CNBC
+1	52166	67	1	0	CH NINE UK	CH NINE UK
+1	7140	68	1	0	CNN	CNN
+1	51107	69	1	0	AlJazeera	Al Jazeera Eng
+# Random stuff
+1	53365	75	1	0	Chart Show TV	Chart Show TV
+1	54110	82	1	0	men&movies	men&movies
+1	55270	84	1	0	propeller	propeller
+1	51116	94	1	0	movies4men	movies4men
+1	51118	96	1	0	mov4men+1	mov4men+1
+1	51120	98	1	0	men&movs+1	men&movs+1
+# BBC regions
+1	6361	101	1	0	BBC1 CI	BBC 1 CI
+1	10306	103	1	0	BBC1 E(E)	BBC 1 East (E)
+1	6351	104	1	0	BBC1 E(W)	BBC 1 East (W)
+1	6301	105	1	0	BBC1 London	BBC 1 London
+1	6341	106	1	0	BBC1 West	BBC 1 West
+1	10355	107	1	0	BBC1 NE & C	BBC 1 NE & C
+1	6441	108	1	0	BBC1 N West	BBC 1 N West
+1	10356	109	1	0	BBC1 Oxford	BBC 1 Oxford
+1	6451	110	1	0	BBC1 Yorks	BBC 1 Yorks
+1	10354	111	1	0	BBC1 S West	BBC 1 S West
+1	6421	112	1	0	BBC1 Scotland	BBC 1 Scotland
+1	10301	113	1	0	BBC1 W Mids	BBC 1 W Mids
+1	6461	114	1	0	BBC1 S East	BBC 1 S East
+1	10305	116	1	0	BBC1 E Mids	BBC 1 E Mids
+1	10303	117	1	0	BBC1 Yrks&Lin	BBC 1 Yrks&Lin
+1	10311	118	1	0	BBC1 Wales	BBC 1 Wales
+1	10361	119	1	0	BBC1 NI	BBC 1 NI
+1	6422	121	1	0	BBC2 Scotland	BBC 2 Scotland
+1	10312	122	1	0	BBC2 Wales	BBC 2 Wales
+1	10362	123	1	0	BBC2 NI	BBC 2 NI
+# ITV regions
+1	10200	201	1	0	ITV Channel Is	ITV Channel Is
+1	10090	202	1	0	ITV1 Anglia E	ITV1 Anglia E
+1	20700	206	1	0	ITV1 Ctrl S	ITV1 Central S
+1	20701	207	1	0	ITV1 Ctrl E	ITV1 Central E
+1	10100	208	1	0	ITV1 Ctrl W	ITV1 Central W
+1	10080	209	1	0	ITV1 Granada	ITV1 Granada
+1	10060	210	1	0	ITV1 London	ITV1 London
+1	10130	212	1	0	ITV1 TyneTees	ITV1 Tyne Tees
+1	10040	213	1	0	ITV1 W Country	ITV1 W Country
+1	10020	214	1	0	ITV1 Wales	ITV1 Wales
+1	10030	215	1	0	ITV1 West	ITV1 West
+1	10160	216	1	0	ITV1 Yorks W	ITV1 Yorks W
+1	10120	217	1	0	ITV1 Border	ITV1 Border
+1	10150	218	1	0	ITV1 Mer SE	ITV1 Mer SE
+1	10210	250	1	0	STV	STV
+1	10220	251	1	0	STV	STV
+1	10230	251	1	0	UTV	UTV
+1	10221	252	1	0	STV	STV
+1	10125	270	1	0	ITV1+1	ITV1+1
+1	10055	271	1	0	ITV1+1	ITV1+1
+1	10145	272	1	0	ITV1+1	ITV1+1
+1	10155	273	1	0	ITV1+1	ITV1+1
+1	10255	274	1	0	ITV1+1	ITV1+1
+1	20715	275	1	0	ITV1+1	ITV1+1
+1	20735	276	1	0	ITV1+1	ITV1+1
+1	20745	277	1	0	ITV1+1	ITV1+1
+# Channel 4 regsions
+1	9212	402	1	0	Channel 4	Channel 4
+1	9213	403	1	0	Channel 4	Channel 4
+1	9214	404	1	0	Channel 4	Channel 4
+1	9215	405	1	0	Channel 4	Channel 4
+1	9216	406	1	0	Channel 4	Channel 4
+1	8312	412	1	0	Channel 4 +1	Channel 4 +1
+1	8313	413	1	0	Channel 4 +1	Channel 4 +1
+1	8314	414	1	0	Channel 4 +1	Channel 4 +1
+1	8315	415	1	0	Channel 4 +1	Channel 4 +1
+1	8316	416	1	0	Channel 4 +1	Channel 4 +1
+1	7160	420	1	0	S4C	S4C
+# Channel 5 regions
+1	7701	451	1	0	Channel 5	Channel 5
+1	7702	452	1	0	Channel 5	Channel 5
+1	7703	453	1	0	Channel 5	Channel 5
+1	7704	454	1	0	Channel 5	Channel 5
+# BBC radio
+1	6751	700	1	0	BBC R1	BBC R1
+1	6752	702	1	0	BBC R2	BBC R2
+1	6753	703	1	0	BBC R3	BBC R3
+1	6754	704	1	0	BBC R4 FM	BBC R4 FM
+1	6755	714	1	0	BBC R4 LW	BBC R4 LW
+1	6757	720	1	0	BBC R Scot.	BBC R Scot.
+1	6758	721	1	0	BBC R Wales	BBC R Wales
+1	6759	722	1	0	BBC R Ulster	BBC R Ulster
+1	6760	723	1	0	BBC Asian	BBC Asian
+1	6401	705	1	0	BBC R5L	BBC R5L
+1	6464	715	1	0	BBC R5SX	BBC R5SX
+1	6767	706	1	0	BBC 6 Music	BBC 6 Music
+1	6768	707	1	0	BBC R4 Ex	BBC R4 Ex
+1	6761	710	1	0	BBC WS	BBC WS
+1	6766	711	1	0	BBC R1X	BBC R1X
+1	10357	720	1	0	BBC ALBA	BBC ALBA
+1	6763	763	1	0	BBC R Cymru	BBC R Cymru
+1	6769	769	1	0	BBC R n Gael	BBC R n Gael
+1	6770	770	1	0	BBC  London	BBC  London
+# Other radio
+1	53120	730	1	0	Absolute CR	Absolute CR
+1	50856	740	1	0	Kiss	Kiss
+1	50860	741	1	0	Magic	Magic
+1	53142	750	1	0	Jazz FM	Jazz FM
+1	53121	755	1	0	Absolute	Absolute
+1	52299	756	1	0	Premier	Premier
+1	9612	765	1	0	RTE 2FM	RTE 2FM
+1	9614	768	1	0	RTE Lyric fm	RTE Lyric fm
+1	9613	770	1	0	RTE R na G	RTE R na G
+1	9611	774	1	0	RTE Radio 1	RTE Radio 1
+1	51114	785	1	0	Newstalk	Newstalk
+1	50886	786	1	0	Real Radio	Real Radio
+1	53122	790	1	0	Absolute80s	Absolute80s
+1	53350	791	1	0	Kix!	Kix!
+1	53355	792	1	0	The Vault	The Vault
+# Special channels for the Olympics
+1	7800	201201	1	0	BBC Olympic 1	BBC Olympic 1
+1	7802	201202	1	0	BBC Olympic 2	BBC Olympic 2
+1	7804	201203	1	0	BBC Olympic 3	BBC Olympic 3
+1	7806	201204	1	0	BBC Olympic 4	BBC Olympic 4
+1	7808	201205	1	0	BBC Olympic 5	BBC Olympic 5
+1	7810	201206	1	0	BBC Olympic 6	BBC Olympic 6
+1	7812	201207	1	0	BBC Olympic 7	BBC Olympic 7
+1	7814	201208	1	0	BBC Olympic 8	BBC Olympic 8
+1	7816	201209	1	0	BBC Olympic 9	BBC Olympic 9
+1	7818	201210	1	0	BBC Olympic 10	BBC Olympic 10
+1	7820	201211	1	0	BBC Olympic 11	BBC Olympic 11
+1	7822	201212	1	0	BBC Olympic 12	BBC Olympic 12
+1	7824	201213	1	0	BBC Olympic 13	BBC Olympic 13
+1	7826	201214	1	0	BBC Olympic 14	BBC Olympic 14
+1	7828	201215	1	0	BBC Olympic 15	BBC Olympic 15
+1	7830	201216	1	0	BBC Olympic 16	BBC Olympic 16
+1	7832	201217	1	0	BBC Olympic 17	BBC Olympic 17
+1	7834	201218	1	0	BBC Olympic 18	BBC Olympic 18
+1	7836	201219	1	0	BBC Olympic 19	BBC Olympic 19
+1	7838	201220	1	0	BBC Olympic 20	BBC Olympic 20
+1	7840	201221	1	0	BBC Olympic 21	BBC Olympic 21
+1	7842	201222	1	0	BBC Olympic 22	BBC Olympic 22
+1	7844	201223	1	0	BBC Olympic 23	BBC Olympic 23
+1	7846	201224	1	0	BBC Olympic 24	BBC Olympic 24
+
+# Source 2: Freeview
+
+# BBC
+2	4163	1001	1	0	BBC ONE	BBC ONE
+2	4287	1002	1	0	BBC TWO	BBC TWO
+2	4288	1003	1	0	BBC THREE	BBC THREE
+2	4544	1004	1	0	BBC FOUR	BBC FOUR
+# ITV
+2	8270	1011	0	0	ITV1	ITV1
+2	8271	1011	1	0	ITV1	ITV1
+#x 2	8325	1012	1	0	ITV2	ITV2
+2	28032	1014	1	0	ITV4	ITV4
+2	8370	1015	1	0	ITV1 +1	ITV1 +1
+# Kid's stuff
+2	4608	1021	1	0	CBBC Channel	CBBC Channel
+2	4672	1022	1	0	CBeebies	CBeebies
+
+2	23936	1025	1	0	Dave ja vu	Dave ja vu
+2	22336	1029	1	0	E4+1	E4+1
+2	8384	1040	1	0	Channel 4	Channel 4
+2	8452	1041	1	0	Channel 4+1	Channel 4+1
+2	27136	1042	1	0	Film4	Film4
+2	8448	1044	1	0	E4	E4
+2	8442	1046	1	0	More 4	More 4
+2	8500	1050	1	0	Channel 5	Channel 5
+#x 2	13024	1051	1	0	Channel 5+1	Channel 5+1
+2	12928	1052	1	0	5*	5*
+2	12928	1052	1	0	5*	5*
+#x 2	12992	1054	1	0	5 USA	5 USA
+# News channels
+2	4352	1060	1	0	BBC NEWS	BBC NEWS
+2	4736	1061	1	0	BBC Parl	BBC Parliament
+2	22080	1062	1	0	Sky News	Sky News
+2	27456	1063	1	0	Russia Today	Russia Today
+2	27712	1064	1	0	Al Jazeera Eng	Al Jazeera Eng
+# BBC radio
+2	6720	1700	1	0	BBC Radio 1	BBC Radio 1
+2	5888	1701	1	0	BBC R1X	BBC R1X
+2	6784	1702	1	0	BBC Radio 2	BBC Radio 2
+2	6848	1703	1	0	BBC Radio 3	BBC Radio 3
+2	6912	1704	1	0	BBC Radio 4	BBC Radio 4
+2	5632	1705	1	0	BBC R5L	BBC R5L
+2	5696	1706	1	0	BBC R5SX	BBC R5SX
+2	5760	1707	1	0	BBC 6 Music	BBC 6 Music
+2	5824	1708	1	0	BBC Radio 4 Ex	BBC Radio 4 Ex
+2	5952	1709	1	0	BBC Asian Net.	BBC Asian Net.
+2	6016	1710	1	0	BBC World Sv.	BBC World Sv.
+# Other radio
+2	25664	1718	1	0	4Music	4Music
+2	26560	1711	1	0	The Hits Radio	The Hits Radio
+2	27040	1712	1	0	Smash Hits!	Smash Hits!
+2	26176	1713	1	0	Kiss	Kiss
+2	26240	1714	1	0	heat	heat
+2	26624	1715	1	0	Magic	Magic
+2	26688	1716	1	0	Q	Q
+2	26368	1718	1	0	SMOOTH RADIO	SMOOTH RADIO
+2	26304	1722	1	0	Kerrang!	Kerrang!
+2	22592	1723	1	0	talkSPORT	talkSPORT
+2	28160	1725	1	0	Premier Radio	Premier Radio
+#x 2	14688	1770	1	0	Absolute Radio	Absolute Radio
+#x 2	14720	1771	1	0	Heart	Heart
+# Random stuff
+2	25792	1071	1	0	Yesterday	Yesterday
+2	4416	1105	1	0	BBC Red Button	BBC Red Button
+2	7168	1301	1	0	301	301
+2	7232	1302	1	0	302	302
+2	22272	1019	1	0	Dave	Dave
+#
+# It's all rubbish beyond here
+1	6315	6315	0	0	BBC TES 3	BBC TES 3
+1	6406	6406	0	0	ETV1	ETV1
+1	6407	6407	0	0	ETV2	ETV2
+1	10238	7818	0	0	talkSPORT	talkSPORT
+1	10321	10321	0	0	ETV5	ETV5
+1	10371	10371	0	0	ETV6	ETV6
+1	53138	53138	0	0	RTE R1 Extra	RTE R1 Extra
+1	53300	53300	0	0	Flava	Flava
+1	53305	53305	0	0	Bliss	Bliss
+1	53310	53310	0	0	Scuzz	Scuzz
+1	53315	53315	0	0	DanceNationTV	DanceNationTV
+1	53320	53320	0	0	True Movies 1	True Movies 1
+1	53325	53325	0	0	True Movies 2	True Movies 2
+1	53335	53335	0	0	Chart Show+1	Chart Show+1
+1	53340	53340	0	0	POP	POP
+1	53345	53345	0	0	Tiny Pop +1	Tiny Pop +1
+1	6762	106762	0	0	ETV3	ETV3
+1	6780	106780	0	0	T7 STRM-0	T7 STRM-0
+1	6781	106781	0	0	T7 STRM-1	T7 STRM-1
+1	9549	109549	0	0	Choice FM	Choice FM
+1	9557	109557	0	0	Solar Radio	Solar Radio
+1	9559	109559	0	0	XFM	XFM
+1	9560	109560	0	0	Capital FM	Capital FM
+1	9561	109561	0	0	Gold	Gold
+1	9568	109568	0	0	Chill	Chill
+1	9570	109570	0	0	Classic FM	Classic FM
+1	9575	109575	0	0	Planet Rock	Planet Rock
+1	52002	152002	0	0	horror ch+1	horror ch+1
+1	52010	152010	0	0	Greatest Hits TV	Greatest Hits TV
+1	52013	152013	0	0	Chat Box	Chat Box
+1	52027	152027	0	0	Sunrise	Sunrise
+1	52028	152028	0	0	BFBS Radio	BFBS Radio
+1	52029	152029	0	0	LBC 97.3	LBC 97.3
+1	52030	152030	0	0	Heart	Heart
+1	52031	152031	0	0	LBC News	LBC News
+1	52105	152105	0	0	horror channel	horror channel
+
