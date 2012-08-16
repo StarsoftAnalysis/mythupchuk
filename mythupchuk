@@ -1,5 +1,7 @@
 #!/usr/bin/perl
 
+# FIXME creating new file also does an update to it
+#
 #########################################################################
 # mythupchuk: MYTHtv UPdater for CHannels in the UK                     #
 # Copyright (C) 2011,2012 Chris Dennis, chris@starsoftanalysis.co.uk    #
@@ -20,7 +22,7 @@
 
 use strict;
 use warnings;
-use 5.006;
+use 5.14.0;
 
 use XML::Simple;
 use DBI;
@@ -30,9 +32,12 @@ use LWP::Simple;            # for mirror()
 use File::Basename;         # for basename()
 use File::Spec::Functions;  # for catfile()
 use File::Copy;             # for move()
-use Data::Dumper;
+use Data::Dumper;           # for debugging
+use MythTV;
 
-my $version = '0.2.0';
+use feature 'unicode_strings';  # Because we're toying with strings that may be in unicode
+
+my $version = '0.2.1';
 
 ### CONFIGURATION: change the default options here, or supply command-line options
 my %opt = ();
@@ -42,7 +47,6 @@ $opt{icondir}    = '/mythtv/channels';
 $opt{geticons}   = 1;
 $opt{debug}      = 0;
 $opt{verbose}    = 1;
-$opt{mysqltxt}   = '/etc/mythtv/mysql.txt';
 $opt{grabber}    = 'tv_grab_uk_rt --list-channels --config-file /dev/null 2> /dev/null';
 $opt{updates}    = 'mythupchuk-new-channels';
 $opt{fileupdate} = 0;
@@ -58,7 +62,6 @@ my $GetOptionsResult = GetOptions (\%opt,
     'verbose!',
     'dbupdate!',
     'commit!',
-    'mysqltxt=s',
     'grabber=s',
     'updates=s',
     'appendnew!',
@@ -84,25 +87,19 @@ Run mythupchuk with --fileupdate and the name of a non-existent file to create a
 that can then be edited and used in future runs of mythupchuk.
 
 Options: 
---fileupdate        Update the channels file with new data from the database
---dbupdate          Update the database with new data from the input file
---commit            Actually do the database updates
-                     (both --dbupdate and --commit are required to update the database)
---overwrite         Replace existing icon files with new ones [default]
---geticons          Download icon files [default]
---icondir <dir>     The writable directory to store icon files
-                     [default: /mythtv/channels]
---mysqltext <file>  Name of file containing MythTV database details, e.g.
-                           DBHostName=localhost
-                           DBUserName=mythtv
-                           DBName=mythconverg
-                           DBPassword=ssshhhh!
-                     [default: /etc/mythtv/mysql.txt]
---grabber <cmd>     Command to retrieve xmltv channel listings
-                     [default: tv_grab_uk_rt --list-channels --config-file /dev/null 2> /dev/null]
---help              Display this help text 
---verbose           Print extra progress information [default]
---debug             Print copious debugging information 
+--fileupdate     Update the channels file with new data from the database
+--dbupdate       Update the database with new data from the input file
+--commit         Actually do the database updates
+                  (both --dbupdate and --commit are required to update the database)
+--overwrite      Replace existing icon files with new ones [default]
+--geticons       Download icon files [default]
+--icondir <dir>  The writable directory to store icon files
+                  [default: /mythtv/channels]
+--grabber <cmd>  Command to retrieve xmltv channel listings
+                  [default: tv_grab_uk_rt --list-channels --config-file /dev/null 2> /dev/null]
+--help           Display this help text 
+--verbose        Print extra progress information [default]
+--debug          Print copious debugging information 
 eot
 }
 
@@ -190,13 +187,9 @@ if ($opt{fileupdate}) {
     open OUTPUTFILE, '>', $outputFile or die "Can't create temporary output file '$outputFile'\n";
 }
 
-# Set up db access, getting name and password from the file specified.
-my %DbInfo;
-&getDBDetails();
-## testing:
-#$DbInfo{DBName} = 'mythconvergtest';
-my $dbh = DBI->connect("DBI:mysql:".$DbInfo{DBName}, $DbInfo{DBUserName}, $DbInfo{DBPassword})
-    or die "Couldn't connect to database: " . DBI->errstr;
+# Connect to mythbackend
+my $mbe = new MythTV({'connect' => 0});
+my $dbh = $mbe->{'dbh'};
 $dbh->{AutoCommit} = 0;  # enable transactions, if possible 
 $dbh->{RaiseError} = 1;  # see http://search.cpan.org/~timb/DBI/DBI.pm#Transactions
 
@@ -256,7 +249,10 @@ eval {    # trap database errors
                         $rows = $dbh->do($sql, undef, $dbrow->{chanid}) if $opt{commit};
                         print "Deleted channel $dbrow->{chanid} (callsign $filerow->{callsign}) ($rows row(s))\n";
                         $deleted += $rows;
-                        $prefix = $delpref if $opt{commit};
+                        if ($opt{commit}) {
+                            $prefix = $delpref;
+                            $inputfilechanged = 1;  # FIXME file only changed if there was no prefix before;
+                        }
                     } else {
                         if ($XmltvOK) {
                             my $filesqname = &squash($filerow->{name});
@@ -281,7 +277,7 @@ eval {    # trap database errors
                 #print "Not Matched $+{sourceid}-$+{serviceid} $+{callsign} $+{delete}\n";
                 # It's not in the db - comment out the line in the file
                 $prefix = $delpref;     
-                $inputfilechanged = 1;
+                $inputfilechanged = 1;  # FIXME likewise
             }
             # Write the line to the updated file
             print OUTPUTFILE "$prefix$_\n" if $opt{fileupdate};
@@ -336,7 +332,7 @@ eval {    # trap database errors
             }
         } else {
             print "No changes to the input file\n";
-            print "(deleting temporary file '$outputFile')\n" if $opt{verbose};
+            print "(deleting temporary file '$outputFile')\n" if $opt{debug};
             unlink $outputFile;
         }
     }
@@ -354,7 +350,6 @@ $dbh->disconnect;
 
 # Statistics
 print "\n$icons icons downloaded\n" if $opt{dbupdate};
-#print scalar(@newchannels) . " new channels\n";
 print "$deleted channels deleted from table\n" if $opt{dbupdate};
 print "$updated channels updated in table\n" if $opt{dbupdate};
 print "$news new channels added to file\n" if $opt{fileupdate};
@@ -364,18 +359,6 @@ print "\nmythupchuk has finished\n";
 # That's the end of the mainline code
 
 ######################################################################
-
-sub getDBDetails {
-    # Get database name and password from a file
-    open MYSQLTXT, "<", $opt{mysqltxt} or die "Can't read $opt{mysqltxt}";
-    while (<MYSQLTXT>) {
-        chomp;
-        if (/^\s*(.*)\s*=\s*(.*)\s*$/) {
-            $DbInfo{$1} = $2;
-        }
-    }
-    close MYSQLTXT;
-}
 
 sub readXMLTV {
     # Read XMLTV info from the Radio Times (or other source)
@@ -418,24 +401,24 @@ sub readXMLTV {
 sub geticon {
     # Given an icon's url, get it (if required), and return it's local filename
     my $url = shift;
-    return '' if !$url or !$opt{geticons};    
+    return '' if !$url;    
     my $basename = basename($url);    # does this work for URLs? it seems to
     my $iconfile = catfile($opt{icondir}, $basename);
     if (-f $iconfile) {
         # icon already exists -- don't overwrite unless requested
         return $iconfile if !$opt{overwrite};
     }
+    return '' if !$opt{geticons};
     my $rc = 0;
     $rc = LWP::Simple::mirror($url, $iconfile) if $opt{dbupdate};
-    print "icon rc=$rc\n" if $opt{debug};
     if ($rc == 304) {
         # icon is already up to date
     } elsif (LWP::Simple::is_error($rc)) {
         print "Couldn't get icon from '$url' (rc=$rc)\n";
         return '';
     } else {
-        print "Got icon $url\n" if $opt{dbupdate};
-        $icons += 1 if $opt{dbupdate};
+        print "Stored icon '$url' as '$iconfile'\n" if $opt{verbose};
+        $icons += 1;
     }
     return $iconfile
 }

@@ -53,7 +53,7 @@
 1	7716	53	1	0	5* +1	5* +1
 1	7710	54	1	0	5 USA	5 USA
 1	7711	55	1	0	5 USA +1	5 USA +1
-# New channels
+# News channels
 1	6405	60	1	0	BBC NEWS	BBC NEWS
 1	10307	61	1	0	BBC PARL	BBC PARL'MNT
 1	50847	62	1	0	Russ Tdy	Russia Today
@@ -141,38 +141,39 @@
 1	6752	702	1	0	BBC R2	BBC R2
 1	6753	703	1	0	BBC R3	BBC R3
 1	6754	704	1	0	BBC R4 FM	BBC R4 FM
+1	6401	705	1	0	BBC R5L	BBC R5L
+1	6767	706	1	0	BBC 6 Music	BBC 6 Music
+1	6768	707	1	0	BBC R4 Ex	BBC R4 Ex
+1	6766	711	1	0	BBC R1X	BBC R1X
 1	6755	714	1	0	BBC R4 LW	BBC R4 LW
+1	6464	715	1	0	BBC R5SX	BBC R5SX
+1	6761	719	1	0	BBC WS	BBC WS
 1	6757	720	1	0	BBC R Scot.	BBC R Scot.
 1	6758	721	1	0	BBC R Wales	BBC R Wales
 1	6759	722	1	0	BBC R Ulster	BBC R Ulster
 1	6760	723	1	0	BBC Asian	BBC Asian
-1	6401	705	1	0	BBC R5L	BBC R5L
-1	6464	715	1	0	BBC R5SX	BBC R5SX
-1	6767	706	1	0	BBC 6 Music	BBC 6 Music
-1	6768	707	1	0	BBC R4 Ex	BBC R4 Ex
-1	6761	710	1	0	BBC WS	BBC WS
-1	6766	711	1	0	BBC R1X	BBC R1X
-1	10357	720	1	0	BBC ALBA	BBC ALBA
-1	6763	763	1	0	BBC R Cymru	BBC R Cymru
-1	6769	769	1	0	BBC R n Gael	BBC R n Gael
-1	6770	770	1	0	BBC  London	BBC  London
+1	10357	724	1	0	BBC ALBA	BBC ALBA
+1	6763	725	1	0	BBC R Cymru	BBC R Cymru
+1	6769	726	1	0	BBC R n Gael	BBC R n Gael
+1	6770	727	1	0	BBC London	BBC London
 # Other radio
-1	53120	730	1	0	Absolute CR	Absolute CR
-1	50856	740	1	0	Kiss	Kiss
-1	50860	741	1	0	Magic	Magic
-1	53142	750	1	0	Jazz FM	Jazz FM
-1	53121	755	1	0	Absolute	Absolute
-1	52299	756	1	0	Premier	Premier
-1	9612	765	1	0	RTE 2FM	RTE 2FM
-1	9614	768	1	0	RTE Lyric fm	RTE Lyric fm
-1	9613	770	1	0	RTE R na G	RTE R na G
-1	9611	774	1	0	RTE Radio 1	RTE Radio 1
-1	51114	785	1	0	Newstalk	Newstalk
-1	50886	786	1	0	Real Radio	Real Radio
-1	53122	790	1	0	Absolute80s	Absolute80s
-1	53350	791	1	0	Kix!	Kix!
-1	53355	792	1	0	The Vault	The Vault
-# Special channels for the Olympics
+1	52028	730	0	0	BFBS Radio	BFBS Radio
+1	53120	731	1	0	Absolute CR	Absolute CR
+1	50856	732	1	0	Kiss	Kiss
+1	50860	733	1	0	Magic	Magic
+1	53142	734	1	0	Jazz FM	Jazz FM
+1	53121	735	1	0	Absolute	Absolute
+1	52299	736	1	0	Premier	Premier
+1	9612	737	1	0	RTE 2FM	RTE 2FM
+1	9614	738	1	0	RTE Lyric fm	RTE Lyric fm
+1	9613	739	1	0	RTE R na G	RTE R na G
+1	9611	740	1	0	RTE Radio 1	RTE Radio 1
+1	51114	741	1	0	Newstalk	Newstalk
+1	50886	742	1	0	Real Radio	Real Radio
+1	53122	743	1	0	Absolute80s	Absolute80s
+1	53350	744	1	0	Kix!	Kix!
+1	53355	745	1	0	The Vault	The Vault
+# Special (temporary) channels for the Olympics
 1	7800	201201	1	0	BBC Olympic 1	BBC Olympic 1
 1	7802	201202	1	0	BBC Olympic 2	BBC Olympic 2
 1	7804	201203	1	0	BBC Olympic 3	BBC Olympic 3
@@ -233,6 +234,9 @@
 2	22080	1062	1	0	Sky News	Sky News
 2	27456	1063	1	0	Russia Today	Russia Today
 2	27712	1064	1	0	Al Jazeera Eng	Al Jazeera Eng
+# Other TV channels
+2	25792	1071	1	0	Yesterday	Yesterday
+2	22272	1072	1	0	Dave	Dave
 # BBC radio
 2	6720	1700	1	0	BBC Radio 1	BBC Radio 1
 2	5888	1701	1	0	BBC R1X	BBC R1X
@@ -244,29 +248,27 @@
 2	5760	1707	1	0	BBC 6 Music	BBC 6 Music
 2	5824	1708	1	0	BBC Radio 4 Ex	BBC Radio 4 Ex
 2	5952	1709	1	0	BBC Asian Net.	BBC Asian Net.
-2	6016	1710	1	0	BBC World Sv.	BBC World Sv.
+2	6016	1719	1	0	BBC World Sv.	BBC World Sv.
 # Other radio
-2	25664	1718	1	0	4Music	4Music
-2	26560	1711	1	0	The Hits Radio	The Hits Radio
-2	27040	1712	1	0	Smash Hits!	Smash Hits!
-2	26176	1713	1	0	Kiss	Kiss
-2	26240	1714	1	0	heat	heat
-2	26624	1715	1	0	Magic	Magic
-2	26688	1716	1	0	Q	Q
-2	26368	1718	1	0	SMOOTH RADIO	SMOOTH RADIO
-2	26304	1722	1	0	Kerrang!	Kerrang!
-2	22592	1723	1	0	talkSPORT	talkSPORT
-2	28160	1725	1	0	Premier Radio	Premier Radio
-#x 2	14688	1770	1	0	Absolute Radio	Absolute Radio
-#x 2	14720	1771	1	0	Heart	Heart
+2	25664	1730	1	0	4Music	4Music
+2	26560	1731	1	0	The Hits Radio	The Hits Radio
+2	27040	1732	1	0	Smash Hits!	Smash Hits!
+2	26176	1734	1	0	Kiss	Kiss
+2	26240	1735	1	0	heat	heat
+2	26624	1736	1	0	Magic	Magic
+2	26688	1737	1	0	Q	Q
+2	26368	1738	1	0	SMOOTH RADIO	SMOOTH RADIO
+2	26304	1739	1	0	Kerrang!	Kerrang!
+2	22592	1740	1	0	talkSPORT	talkSPORT
+2	28160	1741	1	0	Premier Radio	Premier Radio
+#x 2	14688	1742	1	0	Absolute Radio	Absolute Radio
+#x 2	14720	1743	1	0	Heart	Heart
 # Random stuff
-2	25792	1071	1	0	Yesterday	Yesterday
 2	4416	1105	1	0	BBC Red Button	BBC Red Button
 2	7168	1301	1	0	301	301
 2	7232	1302	1	0	302	302
-2	22272	1019	1	0	Dave	Dave
 #
-# It's all rubbish beyond here
+# It's all rubbish beyond here, and/or things I haven't sorted out yet
 1	6315	6315	0	0	BBC TES 3	BBC TES 3
 1	6406	6406	0	0	ETV1	ETV1
 1	6407	6407	0	0	ETV2	ETV2
@@ -298,9 +300,10 @@
 1	52010	152010	0	0	Greatest Hits TV	Greatest Hits TV
 1	52013	152013	0	0	Chat Box	Chat Box
 1	52027	152027	0	0	Sunrise	Sunrise
-1	52028	152028	0	0	BFBS Radio	BFBS Radio
 1	52029	152029	0	0	LBC 97.3	LBC 97.3
 1	52030	152030	0	0	Heart	Heart
 1	52031	152031	0	0	LBC News	LBC News
 1	52105	152105	0	0	horror channel	horror channel
 
+# New channels added 201208161956...
+# ...0 new channels added
