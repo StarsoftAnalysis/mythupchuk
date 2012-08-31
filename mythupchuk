@@ -1,7 +1,5 @@
 #!/usr/bin/perl
 
-# FIXME creating new file also does an update to it
-#
 #########################################################################
 # mythupchuk: MYTHtv UPdater for CHannels in the UK                     #
 # Copyright (C) 2011,2012 Chris Dennis, chris@starsoftanalysis.co.uk    #
@@ -18,7 +16,7 @@
 #                                                                       #
 # You should have received a copy of the GNU General Public License     #
 # along with this program.  If not, see <http://www.gnu.org/licenses/>. #
-##########################################################################
+#########################################################################
 
 use strict;
 use warnings;
@@ -37,36 +35,41 @@ use MythTV;
 
 use feature 'unicode_strings';  # Because we're toying with strings that may be in unicode
 
-my $version = '0.2.1';
+my $version = '0.3.0';
+
+$| = 1; # instant output
 
 ### CONFIGURATION: change the default options here, or supply command-line options
 my %opt = ();
 # Defaults:
-$opt{overwrite}  = 1;
+$opt{renew}  = 1;
 $opt{icondir}    = '/mythtv/channels';
 $opt{geticons}   = 1;
 $opt{debug}      = 0;
-$opt{verbose}    = 1;
+$opt{verbose}    = 0;
 $opt{grabber}    = 'tv_grab_uk_rt --list-channels --config-file /dev/null 2> /dev/null';
-$opt{updates}    = 'mythupchuk-new-channels';
 $opt{fileupdate} = 0;
 $opt{dbupdate}   = 0;
 $opt{commit}     = 0;
 $opt{help}       = 0;
+$opt{bbc1}       = 'south';
+$opt{bbc2}       = 'england';
+$opt{itv}        = 'meridian';
 
 my $GetOptionsResult = GetOptions (\%opt,
-    'overwrite!',
+    'renew!',
     'icondir=s',
     'geticons!',
     'debug!',
     'verbose!',
+    'grabber=s',
+    'fileupdate!',
     'dbupdate!',
     'commit!',
-    'grabber=s',
-    'updates=s',
-    'appendnew!',
-    'fileupdate!',
     'help!',
+    'bbc1=s',
+    'bbc2=s',
+    'itv=s',
 );
 
 sub usage {
@@ -86,24 +89,27 @@ be set to be the same as callsign.
 Run mythupchuk with --fileupdate and the name of a non-existent file to create a file 
 that can then be edited and used in future runs of mythupchuk.
 
-Options: 
---fileupdate     Update the channels file with new data from the database
---dbupdate       Update the database with new data from the input file
---commit         Actually do the database updates
+Options, with default values in brackets:
+--fileupdate     Update the channels file with new data from the database [no]
+--dbupdate       Update the database with new data from the input file [no]
+--commit         Actually do the database updates [no]
                   (both --dbupdate and --commit are required to update the database)
---overwrite      Replace existing icon files with new ones [default]
---geticons       Download icon files [default]
+--renew      Replace existing icon files with new ones [yes]
+--geticons       Download icon files [yes]
 --icondir <dir>  The writable directory to store icon files
-                  [default: /mythtv/channels]
+                  [/mythtv/channels]
 --grabber <cmd>  Command to retrieve xmltv channel listings
-                  [default: tv_grab_uk_rt --list-channels --config-file /dev/null 2> /dev/null]
---help           Display this help text 
---verbose        Print extra progress information [default]
---debug          Print copious debugging information 
+                  [tv_grab_uk_rt --list-channels --config-file /dev/null 2> /dev/null]
+--bbc1 <reg>     \\  Default regions, e.g. 'south' for BBC One South, / [south]
+--bbc2 <reg>      > 'meridian' for ITV1 Meridian etc.               <  [england]
+--itv  <reg>     /  Case is ignored, and spaces are removed.         \\ [meridian]
+--help           Display this help text [no]
+--verbose        Print extra progress information [no]
+--debug          Print copious debugging information [no]
 eot
 }
 
-my $timestamp = strftime('%Y%m%d%H%M',localtime);
+my $timestamp = strftime('%Y%m%d-%H%M', localtime);
 
 # Header information for new file
 my $header = <<eot;
@@ -132,36 +138,27 @@ my $inputFile = shift @ARGV || '';
 
 # pre-run checks
 if (!$inputFile) {
-    print "ERROR: the input file name must be specified\n\n";
+    print "ERROR: The input file name must be specified\n\n";
     &usage();
     exit 1;
 }
+my $newfile = 0;
 if (!-e $inputFile) {
     # input file doesn't exist -- we'll create a new one
     open INPUTFILE, '>', $inputFile or die "Can't create new file '$inputFile' ($!)\n";
     print INPUTFILE $header;
     close INPUTFILE;
+    $newfile = 1;
 }
 if (!-r $inputFile) {
-    print "ERROR: input file '$inputFile' is not readable\n";
+    print "ERROR: Input file '$inputFile' is not readable\n";
     exit 1;
 }
 if ($opt{geticons} && (!-d $opt{icondir} or !-w _)) {
-    print "ERROR: $opt{icondir} is not a writable directory to put icons in\n";
-    exit 1;
-}
-if ($opt{fileupdate} and $opt{createfile}) {
-    print "ERROR: make your mind up\n";
+    print "ERROR: '$opt{icondir}' is not a writable directory to put icons in\n";
     exit 1;
 }
 $opt{commit} = 0 if !$opt{dbupdate};
-if (!$opt{fileupdate} and !$opt{dbupdate}) {
-    print "WARNING: neither --fileupdate nor --dbupdate were specified -- nothing will be done\n";
-    print "         except checking for errors in the input file\n";
-}
-
-# Sort a list numerically
-sub numerically { $a <=> $b }
 
 # Prefix used on channel lines if the channel does not exist in the database
 my $delpref = '#x ';
@@ -171,14 +168,19 @@ my $icons   = 0;
 my $deleted = 0;
 my $updated = 0;
 my $news    = 0;
+my $marked  = 0;
+
+# Read and check the input file
+my @filerows;
+&readInputFile($inputFile, \@filerows);
 
 # Read the channels list to get xmltvid and logo url by channel name
 my %IDbyName;
 my %IconByName;
-my $XmltvOK = 0;
 if ($opt{dbupdate}) {
     &readXMLTV();
 }
+print "Icons: " . Dumper(\%IconByName) if $opt{debug};
 
 # Create output file for the possibly-updated channels file
 # (will get renamed later)
@@ -190,26 +192,197 @@ if ($opt{fileupdate}) {
 # Connect to mythbackend
 my $mbe = new MythTV({'connect' => 0});
 my $dbh = $mbe->{'dbh'};
-$dbh->{AutoCommit} = 0;  # enable transactions, if possible 
-$dbh->{RaiseError} = 1;  # see http://search.cpan.org/~timb/DBI/DBI.pm#Transactions
+#$dbh->{AutoCommit} = 0;  # enable transactions, if possible. NO -- test $opt{commit} each time.
+$dbh->{RaiseError} = 1;  
+
 
 eval {    # trap database errors
-
-    # Load the relevant bits of the channel table into a hash
+    
+    # Load the relevant bits of the channel table into a hash,
+    # keyed by sourceid/serviceid/chanid.
+    # Of which sourceid/serviceid are how we match against the file,
+    # and chanid is used in case of duplicates.
     my $sql = "select chanid, sourceid, serviceid, channum, callsign, name, xmltvid, icon, visible, 0 as matched
-    from channel";
-    my $dbR = $dbh->selectall_hashref($sql, ['sourceid', 'serviceid']);
-    my %db = %$dbR;   # FIXME use dbR instead of db
+        from channel";
+    my $dbR = $dbh->selectall_hashref($sql, ['sourceid', 'serviceid', 'chanid']); 
 
-    # Process the channels file
+    # Work through all the input file lines stored in @filerows
     my $inputfilechanged = 0;
+    foreach my $filerow (@filerows) {
+        my $prefix = '';
+        if ($filerow->{valid}) {
+            my $sourceid  = $filerow->{sourceid};
+            my $serviceid = $filerow->{serviceid};
+            # It is a valid channel line -- look for a match in the db
+            if (exists $dbR->{$sourceid}{$serviceid}) {
+                # It is in the db (there may be duplicates)
+                my @chanids = sort keys %{$dbR->{$sourceid}{$serviceid}};
+                if (@chanids > 1) {
+                    print "WARNING: More than 1 channel found in the database with sourceid $sourceid and serviceid $serviceid,\n";
+                    print "         chanids are: @chanids.  callsigns are: " . 
+                        join(' ', map {"'$_->{callsign}'"} @{$dbR->{$sourceid}{$serviceid}}{@chanids}) . "\n";
+                }
+                foreach my $chanid (@chanids) {
+                    my $dbrow = $dbR->{$sourceid}{$serviceid}{$chanid};
+                    print "Matched $sourceid-$serviceid/$chanid, callsign=$filerow->{callsign}\n" if $opt{debug};
+                    $dbrow->{matched} = 1;
+                    if ($opt{dbupdate}) {
+                        if ($filerow->{delete}) {
+                            # Delete the channel 
+                            my $sql = 'delete from channel where chanid = ?';
+                            my $rows = 1; # no. of rows we expect to delete
+                            $rows = $dbh->do($sql, undef, $chanid) if $opt{commit};
+                            print "Deleted channel $chanid (callsign $filerow->{callsign}) ($rows row(s))\n";
+                            $deleted += $rows;
+                            if ($opt{commit}) {
+                                $prefix = $delpref;
+                                $inputfilechanged = 1 unless $filerow->{marked};  
+                            }
+                        } else {
+                            my $filesqname = &squash($filerow->{name});
+                            my ($xmltvid, $icon) = &matchXmltvid($filesqname);
+                            # Get xmltvid if not provided in file...
+                            if (!$filerow->{xmltvid}) {
+                                # ...from grabber info, or else keep what is in the database
+                                $filerow->{xmltvid} = $xmltvid || $dbrow->{xmltvid} || '';
+                            }
+                            # Get icon that matches the xmltvid if not overridden in file...
+                            if (!$filerow->{icon}) {
+                                # ...from grabber info, or else keep what is in the database
+                                $filerow->{icon} = $icon || $dbrow->{icon} || '';
+                            }
+                            # Update the database with new values for these columns:
+                            &updateChannel($dbh, $chanid, $dbrow, $filerow, 
+                                'channum', 'callsign', 'name', 'visible', 'xmltvid', 'icon')
+                                if $opt{dbupdate};
+                        }
+                    } else {
+                        # not updating the db, so nothing to do
+                    }
+                } # foreach $chanid
+            } else {
+                print "Not Matched $sourceid-$serviceid $filerow->{callsign} $filerow->{delete}\n" if $opt{debug};
+                # It is not in the db - comment out the line in the file
+                $prefix = $delpref;     
+                if ($filerow->{marked}) {
+                    # It was already marked 
+                } else {
+                    $marked += 1;
+                    $inputfilechanged = 1;
+                }
+            }
+        } 
+        # Copy every line to the output file
+        print OUTPUTFILE "$prefix$filerow->{raw}\n" if $opt{fileupdate};
+    } # foreach line in the file
+
+    if ($opt{fileupdate}) {
+        # Add any unmatched db rows to the update file
+        print OUTPUTFILE "# New channels added $timestamp...\n";
+        # First, convert the nested hashes into a simple array of hashes
+        # so that we can sort by channum
+        my @rows;
+        foreach my $sourceid (sort keys %$dbR) {
+            foreach my $serviceid (sort keys %{$dbR->{$sourceid}}) { 
+                foreach my $chanid (sort keys %{$dbR->{$sourceid}{$serviceid}}) {
+                    my $row = $dbR->{$sourceid}{$serviceid}{$chanid};
+                    if (!$row->{matched}) {
+                        # Make sure callsign and name are not blank
+                        my $callsign = $row->{callsign} || 'no callsign';
+                        my $name     = $row->{name}     || 'no name';
+                        push @rows, {
+                            sourceid  => $row->{sourceid},
+                            serviceid => $row->{serviceid},
+                            channum   => $row->{channum},
+                            visible   => $row->{visible},
+                            delete    => 0,
+                            callsign  => $row->{callsign} || '',    # make sure it's not blank
+                            name      => $row->{name}     || '',    # ditto
+                        };
+                    }
+                }
+            }
+        }
+        # Write out the rows in channum order
+        foreach my $row (sort {$a->{channum} <=> $b->{channum}} @rows) {
+            print OUTPUTFILE "$row->{sourceid}\t$row->{serviceid}\t$row->{channum}\t$row->{visible}\t0\t$row->{callsign}\t$row->{name}\n";
+            $news += 1;
+            $inputfilechanged = 1;
+        }
+        print OUTPUTFILE "# ...$news new channels added\n";
+        close OUTPUTFILE;
+
+        # Rename the new and old files
+        if ($newfile) {
+            unlink $inputFile;
+            if (move($outputFile, $inputFile)) {
+                print "\nNew file '$inputFile' has been created\n";
+            } else {
+                print "\nERROR: Failed to rename the new file ($!)\n";
+            }
+        } else {
+            if ($inputfilechanged) {
+                my $renamedInputFile = "$inputFile-$timestamp";
+                if (move($inputFile, $renamedInputFile)) {
+                    if (move($outputFile, $inputFile)) {
+                        print "\nFiles updated: current file is '$inputFile', with '$renamedInputFile' as the backup\n";
+                    } else {
+                        print "\nERROR: Input file renamed to '$renamedInputFile', but failed to rename the new file ($!)\n";
+                    }
+                } else {
+                    print "\nERROR: Could not rename the input file to '$renamedInputFile' ($!)\n";
+                    print "       New file is '$outputFile'\n";
+                }
+            } else {
+                print "\nNo changes to the input file\n";
+                print "(deleting temporary file '$outputFile')\n" if $opt{debug};
+                unlink $outputFile;
+            }
+        }
+    }
+
+    1; # return 'true' from this eval block
+
+} or do {
+    my $error = DBI->errstr || $@;
+    die "$error\n";    
+}; # end of eval block
+
+$dbh->disconnect;
+
+# Statistics
+print "\n";
+if (!$opt{fileupdate} and !$opt{dbupdate}) {
+    print "NOTE: Neither --fileupdate nor --dbupdate were specified:\n";
+    print "      nothing has been done except checking for errors in the input file\n";
+}
+print "$icons icons downloaded\n" if $opt{dbupdate};
+print "$deleted channels deleted from table\n" if $opt{dbupdate};
+print "$updated channels updated in table\n" if $opt{dbupdate};
+print "$news new channels added to file\n" if $opt{fileupdate};
+print "$marked channels newly marked as deleted in file\n" if $opt{fileupdate};
+print " (no updates actually done: use '--commit' to really update the database)\n" if $opt{dbupdate} && !$opt{commit};
+print "\nmythupchuk has finished\n";
+
+# That's the end of the mainline code
+
+######################################################################
+
+sub readInputFile {
+    # Process the channels file, 
+    # storing each line in an array, along with its parsed details
+    # and other information
+    my $inputFile = shift;
+    my $rowsR     = shift;
+    my @lines;
     open INPUTFILE,  '<', $inputFile  or die "Can't read $inputFile\n";
-    my $n = 0;
-    my $warnings = 0;
+    my $n = 0;          # line count
+    my %channelSeen;    # to check for duplicates
+    my $errors = 0;
     while (<INPUTFILE>) {
         chomp;
         $n += 1;
-        s/^#x\s*//;                                # reconsider auto-commented lines
+        my $prefixRemoved = s/^#x\s*//;            # reconsider auto-commented lines
         if (/^
              \s*       (?<sourceid>  \d+    )  
              \s*\t+\s* (?<serviceid> [^\t]+ )  
@@ -217,148 +390,54 @@ eval {    # trap database errors
              \s*\t+\s* (?<visible>   [01]   )  
              \s*\t+\s* (?<delete>    [01]   )  
              \s*\t+\s* (?<callsign>  [^\t]+ )  
-            (\s*\t+\s* (?<name>      [^\t]+ ))?    # name is often missing in generated file 
+             \s*\t+\s* (?<name>      [^\t]+ ) 
             (\s*\t+\s* (?<xmltvid>   [^\t]+ ))?    # xmltvid is optional 
             (\s*\t+\s* (?<icon>      [^\t]+ ))?    # icon is optional 
             /x) {
-            my $filerow = {
+            if ($channelSeen{"$+{sourceid}-$+{serviceid}"}) {
+                print "ERROR: Line $n specifies the same channel as line " . $channelSeen{"$+{sourceid}-$+{serviceid}"};
+                print " (both have sourceid $+{sourceid} and serviceid $+{serviceid})\n";
+                $errors += 1;
+            } else {
+                $channelSeen{"$+{sourceid}-$+{serviceid}"} = $n;
+            }
+            # It is a valid channel line
+            push @$rowsR, {
+                raw       => $_,
+                valid     => 1,
                 sourceid  => $+{sourceid},
                 serviceid => $+{serviceid},
                 channum   => $+{channum},
                 visible   => $+{visible},
                 delete    => $+{delete},
                 callsign  => $+{callsign},
-                name      => $+{name}    || $+{callsign},
+                name      => $+{name},
                 xmltvid   => $+{xmltvid} || '',
                 icon      => $+{icon}    || '',
-            };
-            print "Parsed line with: " . Dumper($filerow) . "\n" if $opt{debug};
-            # FIXME we can no longer detect duplicates in the file like this
-            my $prefix = '';
-            # It's a valid channel line -- look for a match in the db
-            if (exists $db{$+{sourceid}}{$+{serviceid}}) {
-                # It's in the db
-                my $dbrow = $db{$+{sourceid}}{$+{serviceid}};
-                print "Matched $+{sourceid}-$+{serviceid} $+{callsign}\n" if $opt{debug};
-                $dbrow->{matched} = 1;
-                if ($opt{dbupdate}) {
-                    if ($filerow->{delete}) {
-                        # Delete the channel 
-                        my $sql = 'delete from channel where chanid = ?';
-                        my $rows = 0;
-                        $rows = $dbh->do($sql, undef, $dbrow->{chanid}) if $opt{commit};
-                        print "Deleted channel $dbrow->{chanid} (callsign $filerow->{callsign}) ($rows row(s))\n";
-                        $deleted += $rows;
-                        if ($opt{commit}) {
-                            $prefix = $delpref;
-                            $inputfilechanged = 1;  # FIXME file only changed if there was no prefix before;
-                        }
-                    } else {
-                        if ($XmltvOK) {
-                            my $filesqname = &squash($filerow->{name});
-                            # Get xmltvid if not provided in file
-                            if (!$filerow->{xmltvid}) {
-                                $filerow->{xmltvid} = &matchXmltvid($filesqname);
-                            }
-                            # Get icon that matches the xmltvid if not overridden in file
-                            if (!$filerow->{icon}) {
-                                $filerow->{icon} = $IconByName{$filesqname} || '';
-                            }
-                        }
-                        # Update the database with new values for these columns:
-                        &updateChannel($dbh, $dbrow->{chanid}, $dbrow, $filerow, 
-                            'channum', 'callsign', 'name', 'visible', 'xmltvid', 'icon')
-                        if $opt{dbupdate};
-                    }
-                } else {
-                    # not updating the db, so nothing to do
-                }
-            } else {
-                #print "Not Matched $+{sourceid}-$+{serviceid} $+{callsign} $+{delete}\n";
-                # It's not in the db - comment out the line in the file
-                $prefix = $delpref;     
-                $inputfilechanged = 1;  # FIXME likewise
+                marked    => $prefixRemoved ? 1 : 0,
             }
-            # Write the line to the updated file
-            print OUTPUTFILE "$prefix$_\n" if $opt{fileupdate};
         } elsif (/^\s*\#|^\s*$/) {   
-            # copy comments and blank lines
-            print OUTPUTFILE "$_\n" if $opt{fileupdate};
+            # Store comments and blank lines
+            push @$rowsR, {
+                raw   => $_,
+                valid => 0,
+            };
         } else {
-            print "WARNING: invalid data at line $n: '$_'\n";
-            $warnings += 1;
-            # but copy it anyway
-            print OUTPUTFILE "$_\n"if $opt{fileupdate};
+            print "ERROR: Invalid data at line $n: '$_'\n";
+            $errors += 1;
+            # but store it anyway
+            push @$rowsR, {
+                raw   => $_,
+                valid => 0,
+            };
         }
     }
     close INPUTFILE;
-    if ($warnings) {  # FIXME make it an option to carry on with warnings?
-        die "Please correct the input file before re-running mythupchuk\n";
+    if ($errors) {  
+        die "\nERROR: One or more problems found in the input file -- see messages above.\n" .
+              "       Please correct the input file before re-running mythupchuk\n";
     }
-
-    my $sourceid;   # declared here so that it can be used in bychannel()
-    # for sorting by channum:
-    sub bychannel { $db{$sourceid}{$a}->{channum} <=> $db{$sourceid}{$b}->{channum} };
-
-    if ($opt{fileupdate}) {
-        # Add any unmatched db rows to the update file
-        print OUTPUTFILE "# New channels added $timestamp...\n";
-        foreach (sort keys %db) {
-            $sourceid = $_;  # 'global' $sourceid to be available to bychannel()
-            foreach my $serviceid (sort bychannel keys %{$db{$sourceid}}) {
-                my $row = $db{$sourceid}{$serviceid};
-                if (!$row->{matched}) {
-                    print OUTPUTFILE "$row->{sourceid}\t$row->{serviceid}\t$row->{channum}\t$row->{visible}\t0\t$row->{callsign}\t$row->{name}\n";
-                    $news += 1;
-                    $inputfilechanged = 1;
-                }
-            }
-        }
-        print OUTPUTFILE "# ...$news new channels added\n";
-        close OUTPUTFILE;
-
-        # Rename the new and old files
-        if ($inputfilechanged) {
-            my $renamedInputFile = "$inputFile-$timestamp";
-            if (move($inputFile, $renamedInputFile)) {
-                if (move($outputFile, $inputFile)) {
-                    print "Files updated: current file is '$inputFile', with '$renamedInputFile' as the backup\n";
-                } else {
-                    print "ERROR: Input file renamed to '$renamedInputFile', but failed to rename the new file ($!)\n";
-                }
-            } else {
-                print "ERROR: Could not rename the input file to '$renamedInputFile' ($!)\n";
-                print "       New file is '$outputFile'\n";
-            }
-        } else {
-            print "No changes to the input file\n";
-            print "(deleting temporary file '$outputFile')\n" if $opt{debug};
-            unlink $outputFile;
-        }
-    }
-
-    1; # return 'true' from this eval block
-
-} or do {
-    # Something went wrong with the database connection
-    my $error = DBI->errstr;
-    $dbh->rollback;
-    die "Transaction aborted when updating channel table because $error\n";    #$@";
-}; # end of eval block
-
-$dbh->disconnect;
-
-# Statistics
-print "\n$icons icons downloaded\n" if $opt{dbupdate};
-print "$deleted channels deleted from table\n" if $opt{dbupdate};
-print "$updated channels updated in table\n" if $opt{dbupdate};
-print "$news new channels added to file\n" if $opt{fileupdate};
-print " (no updates actually done: use '--commit' to really update the database)\n" if $opt{dbupdate} && !$opt{commit};
-print "\nmythupchuk has finished\n";
-
-# That's the end of the mainline code
-
-######################################################################
+}
 
 sub readXMLTV {
     # Read XMLTV info from the Radio Times (or other source)
@@ -379,10 +458,9 @@ sub readXMLTV {
         print "\nWARNING: Failed to run 'tv_grab_uk_rt --list-channels' (rc=$tvgrabrc)\n"; 
         print "         XMLTVID and Icon updates will not be done\n;"
     } else {
-        $XmltvOK = 1;
         my $xs1 = XML::Simple->new();
         my $doc = $xs1->XMLin($xmlstring);
-        print "Getting any updated icons...\n";
+        print "Getting icons: " if $opt{geticons} && !$opt{verbose};
         foreach my $key (keys (%{$doc->{channel}})) {
             my $entry = $doc->{channel}->{$key};
             if (ref($entry->{'display-name'}) eq "ARRAY") {
@@ -394,7 +472,7 @@ sub readXMLTV {
                 &addinfo($entry->{'display-name'}, $key, &geticon($entry->{icon}->{src}));
             }
         }
-        print "...done\n";
+        print " done\n" if $opt{geticons} && !$opt{verbose};
     }
 }
 
@@ -404,20 +482,36 @@ sub geticon {
     return '' if !$url;    
     my $basename = basename($url);    # does this work for URLs? it seems to
     my $iconfile = catfile($opt{icondir}, $basename);
+    my $flag = 'n'; # new
     if (-f $iconfile) {
-        # icon already exists -- don't overwrite unless requested
-        return $iconfile if !$opt{overwrite};
+        # Icon is already stored locally
+        if ($opt{geticons} and $opt{renew}) {
+            # We need to download it anyway
+            $flag = 'r';  # renewing
+        } else {
+            if ($opt{geticons}) {
+                print $opt{verbose} ? "Keeping existing icon '$basename'\n" : 'e';
+            }
+            return $iconfile;
+        }
     }
-    return '' if !$opt{geticons};
+    if (!$opt{geticons}) {
+        return '';
+    }
     my $rc = 0;
-    $rc = LWP::Simple::mirror($url, $iconfile) if $opt{dbupdate};
+    $rc = LWP::Simple::mirror($url, $iconfile);
     if ($rc == 304) {
         # icon is already up to date
+        print $opt{verbose} ? "Icon $basename is already up-to-date\n" : 'u';
     } elsif (LWP::Simple::is_error($rc)) {
-        print "Couldn't get icon from '$url' (rc=$rc)\n";
+        print $opt{verbose} ? "Couldn't get icon from '$url', rc=$rc\n" : '!';
         return '';
     } else {
-        print "Stored icon '$url' as '$iconfile'\n" if $opt{verbose};
+        if ($flag eq 'r') {
+            print $opt{verbose} ? "Renewed icon '$basename' as '$iconfile'\n" : "$flag";
+        } else {
+            print $opt{verbose} ? "Stored new icon '$basename' as '$iconfile'\n" : "$flag";
+        }
         $icons += 1;
     }
     return $iconfile
@@ -425,13 +519,13 @@ sub geticon {
 
 sub updateChannel {
     # Update a row in the channel table if there are any changes to be made
-    my $dbh    = shift;
+    my $dbh    = shift;     # database handle
     my $chanid = shift;     # key of row to update
     my $db     = shift;     # original values from db (hashref)
     my $file   = shift;     # new values from file (hashref)
     my @columns = @_;   
-    print "uC: db      = " . join(' ', map {"$_='$db->{$_}'"}   keys $db  ) . "\n" if $opt{debug};
-    print "uC: file    = " . join(' ', map {"$_='$file->{$_}'"} keys $file) . "\n" if $opt{debug};
+    print "uC: db      = " . join(' ', map {"$_='$db->{$_}'"}   sort keys $db  ) . "\n" if $opt{debug};
+    print "uC: file    = " . join(' ', map {"$_='$file->{$_}'"} sort keys $file) . "\n" if $opt{debug};
     print "uC: columns = @columns\n" if $opt{debug};
     my %changes;
     foreach my $col (@columns) {
@@ -441,7 +535,7 @@ sub updateChannel {
     my @values = values %changes;
     my $sql = "update channel set $keys where chanid = ?"; 
     if (%changes) {
-        my $rows = 0;
+        my $rows = 1;    # no. of rows we expect to update
         $rows = $dbh->do($sql, undef, @values, $chanid) if $opt{commit};
         print "$rows row(s) affected\n" if $opt{debug};
         print "Updated channel $chanid (serviceid $db->{serviceid}, callsign '$db->{callsign}') \n\twith value(s) " . join(', ', map {"$_='$changes{$_}'"} keys %changes) . ", affecting $rows row(s)\n";
@@ -476,23 +570,24 @@ sub strip {
 
 sub matchXmltvid {
     # Try to match the channel name against the XMLTVID list
+    # returning the xmltvid and the corresponding icon
     my $sqname = shift;
     #my $sqname = &squash($name);
     if ($IDbyName{$sqname}) {
         print "   straight match on $sqname\n" if $opt{debug};
-        return $IDbyName{$sqname};
+        return $IDbyName{$sqname}, $IconByName{$sqname};
     } else {
         # no obvious match -- try some hacks
         my $hackedname = hackit($sqname);
         if ($hackedname ne $sqname) {
             print "   hacked $sqname to $hackedname\n" if $opt{debug};
             $sqname = $hackedname;
-            return $IDbyName{$sqname} if $IDbyName{$sqname};
+            return $IDbyName{$sqname}, $IconByName{$sqname} if $IDbyName{$sqname};
             print "   but" if $opt{debug};
         }
     }
     print "   no match for $sqname\n" if $opt{debug};
-    return '';
+    return '', '';
 }
 
 sub hackit {
@@ -525,18 +620,23 @@ sub hackit {
         return 'bbconeeastmidlands'             if /^bbc1emids$/;
         return 'bbconeyorkshire&lincolnshire'   if /^bbc1yrks&lin$/;
         return 'bbconenorthernireland'          if /^bbc1ni$/;
+        return "bbcone$opt{bbc1}"               if /^bbc1$/;        # BBC1 default region
+        return "bbcone$opt{bbc1}"               if /^bbcone$/;      # BBC ONE - default region
         return "bbcone$1"                       if /^bbc1(.*)$/;    # BBC1 catch-all
         return 'bbctwonorthernireland'          if /^bbc2ni$/;
         # (there are lots more bbc2's in the xmltv list)
+        return "bbctwo$opt{bbc2}"               if /^bbc2$/;        # BBC2 - default region
+        return "bbctwo$opt{bbc2}"               if /^bbctwo$/;      # BBC TWO - default region
         return "bbctwo$1"                       if /^bbc2(.*)$/;    # BBC2 catch-all
         # ITV
         return 'itv1channeltelevision'          if /^itvchannelis$/;
-        return 'itv1central'                    if /^itv1central/; # central s|e|w  all become just central
+        return 'itv1central'                    if /^itv1central/;  # central s|e|w  all become just central
         return 'itv1westcountry'                if /^itv1wcountry$/;
         return 'itv1yorkshire'                  if /^itv1yorksw$/;
-        return 'itv1meridian'                   if /^itv1merse$/; # probably
-        return 'stvcentral'                     if /^stv$/;  # or stv north...
-        return 'itv1+1(meridian/anglia)'        if /^itv1\+1$/;  # need to distinguish regions from the serviceid
+        return 'itv1meridian'                   if /^itv1merse$/;   # probably
+        return "itv1$opt{itv}"                  if /^itv1$/;        # ITV1 - default region
+        return 'stvcentral'                     if /^stv$/;         # or stv north...
+        return 'itv1+1(meridian/anglia)'        if /^itv1\+1$/;     # need to distinguish regions from the serviceid
         # (likewise channel 4 regions, but only one on xmltv list)
         # sadly, there are no radio listings on xmltv (but EIT provides them)
     } 
