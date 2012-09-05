@@ -93,15 +93,17 @@ Options, with default values in brackets:
 --fileupdate     Update the channels file with new data from the database [no]
 --dbupdate       Update the database with new data from the input file [no]
 --commit         Actually do the database updates [no]
-                  (both --dbupdate and --commit are required to update the database)
---renew      Replace existing icon files with new ones [yes]
+                 (both --dbupdate and --commit are required to update the database)
+--renew          Replace existing icon files with new ones [yes]
 --geticons       Download icon files [yes]
+                 (--renew and --geticons can be prefixed with no
+                 to override default (e.g. --nogeticons))
 --icondir <dir>  The writable directory to store icon files
-                  [/mythtv/channels]
+                 [/mythtv/channels]
 --grabber <cmd>  Command to retrieve xmltv channel listings
-                  [tv_grab_uk_rt --list-channels --config-file /dev/null 2> /dev/null]
+                 [tv_grab_uk_rt --list-channels --config-file /dev/null 2> /dev/null]
 --bbc1 <reg>     \\  Default regions, e.g. 'south' for BBC One South, / [south]
---bbc2 <reg>      > 'meridian' for ITV1 Meridian etc.               <  [england]
+--bbc2 <reg>     > 'meridian' for ITV1 Meridian etc.               <  [england]
 --itv  <reg>     /  Case is ignored, and spaces are removed.         \\ [meridian]
 --help           Display this help text [no]
 --verbose        Print extra progress information [no]
@@ -460,7 +462,10 @@ sub readXMLTV {
     } else {
         my $xs1 = XML::Simple->new();
         my $doc = $xs1->XMLin($xmlstring);
-        print "Getting icons: " if $opt{geticons} && !$opt{verbose};
+        if($opt{geticons} && !$opt{verbose})
+        {
+            print "Getting icons: u=icon up-to-date !=icon could not be updated r=icon renewed n=new icon downloaded e=keeping existing icon\n";
+        } 
         foreach my $key (keys (%{$doc->{channel}})) {
             my $entry = $doc->{channel}->{$key};
             if (ref($entry->{'display-name'}) eq "ARRAY") {
