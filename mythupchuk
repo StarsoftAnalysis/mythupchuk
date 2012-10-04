@@ -642,6 +642,7 @@ sub hackit {
         return "itv1$opt{itv}"                  if /^itv1$/;        # ITV1 - default region
         return 'stvcentral'                     if /^stv$/;         # or stv north...
         return 'itv1+1(meridian/anglia)'        if /^itv1\+1$/;     # need to distinguish regions from the serviceid
+        return 'stvcentral+1'                         if /^stv\+1$/;
         # (likewise channel 4 regions, but only one on xmltv list)
         # sadly, there are no radio listings on xmltv (but EIT provides them)
     } 
