@@ -35,7 +35,7 @@ use MythTV;
 
 use feature 'unicode_strings';  # Because we're toying with strings that may be in unicode
 
-my $version = '0.3.0';
+my $version = '0.3.1';
 
 $| = 1; # instant output
 
@@ -89,21 +89,21 @@ be set to be the same as callsign.
 Run mythupchuk with --fileupdate and the name of a non-existent file to create a file 
 that can then be edited and used in future runs of mythupchuk.
 
-Options, with default values in brackets:
+Options, with default values in brackets.
+(All 'yes'/'no' options can be prefixed with 'no' to override a default of 'yes'
+ e.g. --nogeticons)
 --fileupdate     Update the channels file with new data from the database [no]
 --dbupdate       Update the database with new data from the input file [no]
 --commit         Actually do the database updates [no]
-                 (both --dbupdate and --commit are required to update the database)
+                  (both --dbupdate and --commit are required to update the database)
 --renew          Replace existing icon files with new ones [yes]
 --geticons       Download icon files [yes]
-                 (--renew and --geticons can be prefixed with no
-                 to override default (e.g. --nogeticons))
 --icondir <dir>  The writable directory to store icon files
-                 [/mythtv/channels]
+                  [/mythtv/channels]
 --grabber <cmd>  Command to retrieve xmltv channel listings
-                 [tv_grab_uk_rt --list-channels --config-file /dev/null 2> /dev/null]
+                  [tv_grab_uk_rt --list-channels --config-file /dev/null 2> /dev/null]
 --bbc1 <reg>     \\  Default regions, e.g. 'south' for BBC One South, / [south]
---bbc2 <reg>     > 'meridian' for ITV1 Meridian etc.               <  [england]
+--bbc2 <reg>      > 'meridian' for ITV1 Meridian etc.               <  [england]
 --itv  <reg>     /  Case is ignored, and spaces are removed.         \\ [meridian]
 --help           Display this help text [no]
 --verbose        Print extra progress information [no]
@@ -464,7 +464,7 @@ sub readXMLTV {
         my $doc = $xs1->XMLin($xmlstring);
         if($opt{geticons} && !$opt{verbose})
         {
-            print "Getting icons: u=icon up-to-date !=icon could not be updated r=icon renewed n=new icon downloaded e=keeping existing icon\n";
+            print "Getting icons:  u=up-to-date  r=renewed  n=new  e=existing  !=failed\n";
         } 
         foreach my $key (keys (%{$doc->{channel}})) {
             my $entry = $doc->{channel}->{$key};
@@ -640,9 +640,9 @@ sub hackit {
         return 'itv1yorkshire'                  if /^itv1yorksw$/;
         return 'itv1meridian'                   if /^itv1merse$/;   # probably
         return "itv1$opt{itv}"                  if /^itv1$/;        # ITV1 - default region
-        return 'stvcentral'                     if /^stv$/;         # or stv north...
         return 'itv1+1(meridian/anglia)'        if /^itv1\+1$/;     # need to distinguish regions from the serviceid
-        return 'stvcentral+1'                         if /^stv\+1$/;
+        return 'stvcentral'                     if /^stv$/;         # or stv north...
+        return 'stvcentral+1'                   if /^stv\+1$/;
         # (likewise channel 4 regions, but only one on xmltv list)
         # sadly, there are no radio listings on xmltv (but EIT provides them)
     } 

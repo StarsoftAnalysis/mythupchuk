@@ -1,0 +1,19 @@
+Change log for mythupchuk
+=========================
+
+0.3.1	5/10/12
+
+Minor improvements -- thanks to stephengrobertson on github.
+
+0.3.0
+
+New features:
+* copes with duplicate channels in the database
+* new options 'bbc1', 'bbc2', and 'itv' to allow customisation of
+  default regions
+* new channels are now nicely sorted by channel number
+* better summary of what changes have been made
+ 
+Bug fixes:
+* validates the input file before starting any database updates
+* works properly when --nogeticons is specified
