@@ -1,30 +1,32 @@
-# Channels file for use by mythupchuk, created 20120812-0107
+# Channels file for use by mythupchuk created 16 November 2012
 # vim:ts=12
 #
-# DON'T EDIT SOURCEID OR SERVICEID unless you know what you're doing !!!
-# And be careful editing NAME otherwise it won't match its XMLTVID
-#
-# NOTE: This is a sample channels file: you may find the numbering and the 
-# choices of which channels to delete idiosyncratic.
+# NOTE: This is a sample channels file: you may find the numbering  
+# idiosyncratic.  Regional variations are set for the south of England.
 # It was developed on a MythTV backend with both Freesat and Freeview
 # receivers -- source ids 1 and 2 respectively.
+#
+# DON'T EDIT SOURCEID OR SERVICEID unless you know what you're doing!!!
+# And be careful editing NAME otherwise it won't match its XMLTVID.
 #
 # Blank lines and lines beginning with '#' are ignored,
 # except for lines beginning with '#x' which indicates a channel that is 
 # no longer in the database: such a line will be automatically un-commented
 # if the channel reappears in the database (after a re-tune, for example).
 #
+# Columns MUST be separated by a single TAB.
+#
 #sourceid	serviceid	channum	visible	delete	callsign	name	xmltvid	icon
 
 # Source 1: Freesat
 
 # BBC
-1	10353	1	1	0	BBC ONE	BBC 1 South
-1	6302	2	1	0	BBC TWO	BBC 2 England
-1	6319	3	1	0	BBC THREE	BBC THREE
-1	6416	4	1	0	BBC FOUR	BBC FOUR
+1	10353	1	1	0	BBC ONE	BBC ONE
+1	6302	2	1	0	BBC TWO	BBC TWO
+1	10351	3	1	0	BBC THREE	BBC THREE
+1	6316	4	1	0	BBC FOUR	BBC FOUR
 # ITV
-1	10140	11	1	0	ITV1	ITV1 Meridian S
+1	10140	11	1	0	ITV1	ITV1
 1	10070	12	1	0	ITV2	ITV2
 1	10260	13	1	0	ITV3	ITV3
 1	10072	14	1	0	ITV4	ITV4
@@ -34,12 +36,12 @@
 1	10015	18	1	0	ITV4+1	ITV4+1
 1	10000	19	1	0	ITV1 HD	ITV1 HD
 # Kids' stuff
-1	6418	21	1	0	CBeebies	CBeebies
-1	6317	22	1	0	CBBC	CBBC Channel
+1	6318	21	1	0	CBeebies	CBeebies
+1	10352	22	1	0	CBBC	CBBC Channel
 1	10071	23	1	0	CITV	CITV
 # Channel 4
-1	9211	40	1	0	Channel 4	Channel 4
-1	8311	41	1	0	Channel 4+1	Channel 4 +1
+1	9212	40	1	0	C4	Channel 4
+1	8312	41	1	0	C4+1	Channel 4 +1
 1	9220	42	1	0	Film4	Film4
 1	9225	43	1	0	Film4+1	Film4 +1
 1	8305	44	1	0	E4	E4
@@ -47,54 +49,56 @@
 1	8340	46	1	0	More4	More4
 1	9230	47	1	0	More4 +1	More4 +1
 1	9208	48	1	0	e4	e4
-1	21200	49	1	0	Channel 4 HD	Channel 4 HD
+1	21200	49	1	0	C4HD	Channel 4 HD
 # Channel 5
-1	7700	50	1	0	Channel 5	Channel 5
-1	7720	51	1	0	Channel 5+1	Channel 5+1
+1	7701	50	1	0	C5	Channel 5
+1	7720	51	1	0	C5+1	Channel 5+1
 1	7715	52	1	0	5*	5*
-1	7716	53	1	0	5* +1	5* +1
-1	7710	54	1	0	5 USA	5 USA
-1	7711	55	1	0	5 USA +1	5 USA +1
+1	7716	53	1	0	5*+1	5* +1
+1	7710	54	1	0	5USA	5 USA
+1	7711	55	1	0	5USA+1	5 USA +1
 # News channels
-1	6405	60	1	0	BBC NEWS	BBC NEWS
+1	10358	60	1	0	BBC NEWS	BBC NEWS
 1	10307	61	1	0	BBC PARL	BBC PARL'MNT
 1	50847	62	1	0	Russ Tdy	Russia Today
 1	55280	63	1	0	Euronews	Euronews
 1	52570	64	1	0	FRANCE 24	FRANCE 24
-1	51011	65	1	0	CCTV News	CCTV News
+1	51011	65	1	0	CCTVNews	CCTV News
 1	52111	66	1	0	CNBC	CNBC
 1	7140	68	1	0	CNN	CNN
 1	51107	69	1	0	AlJazeera	Al Jazeera Eng
 # Random stuff
-1	53365	80	1	0	Chart Show TV	Chart Show TV
-1	54110	81	1	0	men&movies	men&movies
-1	55270	82	1	0	propeller	propeller
-1	51116	83	1	0	movies4men	movies4men
-1	51118	84	1	0	mov4men+1	mov4men+1
-1	51120	85	1	0	men&movs+1	men&movs+1
-1	52105	86	1	0	horror channel	horror channel
-1	52002	87	1	0	horror ch+1	horror ch+1
+1	53365	80	1	0	ChartShowTV	Chart Show TV
+1	55270	81	1	0	propeller	propeller
+1	54110	82	1	0	men&movies	Men & Movies
+1	51120	83	1	0	men&movs+1	Men & Movies +1
+1	51116	84	1	0	movies4men	Movies 4 Mmen
+1	51118	85	1	0	mov4men+1	Movies 4 Men +1
+1	52105	86	1	0	horror	Horror Channel
+1	52002	87	1	0	horror+1	Horror Channel +1
 # BBC regions
 1	6361	101	1	0	BBC1 CI	BBC 1 CI
 1	10306	103	1	0	BBC1 E(E)	BBC 1 East (E)
 1	6351	104	1	0	BBC1 E(W)	BBC 1 East (W)
-1	6301	105	1	0	BBC1 London	BBC 1 London
+1	6301	105	1	0	BBC1 Londona	BBC 1 Londona 
+1	6391	105	1	0	BBC1 Londonb	BBC 1 Londonb
 1	6341	106	1	0	BBC1 West	BBC 1 West
-1	10355	107	1	0	BBC1 NE & C	BBC 1 NE & C
+1	6471	107	1	0	BBC1 NE & C	BBC 1 NE & C
 1	6441	108	1	0	BBC1 N West	BBC 1 N West
 1	10356	109	1	0	BBC1 Oxford	BBC 1 Oxford
 1	6451	110	1	0	BBC1 Yorks	BBC 1 Yorks
 1	10354	111	1	0	BBC1 S West	BBC 1 S West
-1	6421	112	1	0	BBC1 Scotland	BBC 1 Scotland
 1	10301	113	1	0	BBC1 W Mids	BBC 1 W Mids
 1	6461	114	1	0	BBC1 S East	BBC 1 S East
 1	10305	116	1	0	BBC1 E Mids	BBC 1 E Mids
 1	10303	117	1	0	BBC1 Yrks&Lin	BBC 1 Yrks&Lin
-1	10311	118	1	0	BBC1 Wales	BBC 1 Wales
-1	10361	119	1	0	BBC1 NI	BBC 1 NI
-1	6422	121	1	0	BBC2 Scotland	BBC 2 Scotland
-1	10312	122	1	0	BBC2 Wales	BBC 2 Wales
-1	10362	123	1	0	BBC2 NI	BBC 2 NI
+1	6421	121	1	0	BBC1 Scotland	BBC 1 Scotland
+1	6422	122	1	0	BBC2 Scotland	BBC 2 Scotland
+1	6423	123	1	0	BBC ALBA	BBC ALBA
+1	10311	131	1	0	BBC1 Wales	BBC 1 Wales
+1	10312	132	1	0	BBC2 Wales	BBC 2 Wales
+1	10361	141	1	0	BBC1 NI	BBC 1 NI
+1	10362	142	1	0	BBC2 NI	BBC 2 NI
 # ITV regions
 1	10200	201	1	0	ITV Channel Is	ITV Channel Is
 1	10090	202	1	0	ITV1 Anglia E	ITV1 Anglia E
@@ -110,55 +114,59 @@
 1	10160	216	1	0	ITV1 Yorks W	ITV1 Yorks W
 1	10120	217	1	0	ITV1 Border	ITV1 Border
 1	10150	218	1	0	ITV1 Mer SE	ITV1 Mer SE
-1	10210	250	1	0	STV	STV
-1	10220	251	1	0	STV	STV
-1	10230	251	1	0	UTV	UTV
-1	10221	252	1	0	STV	STV
-1	10125	270	1	0	ITV1+1	ITV1+1
-1	10055	271	1	0	ITV1+1	ITV1+1
-1	10145	272	1	0	ITV1+1	ITV1+1
-1	10155	273	1	0	ITV1+1	ITV1+1
-1	10255	274	1	0	ITV1+1	ITV1+1
-1	20715	275	1	0	ITV1+1	ITV1+1
-1	20735	276	1	0	ITV1+1	ITV1+1
-1	20745	277	1	0	ITV1+1	ITV1+1
+1	12101	219	1	0	ITV1 Mer N	ITV1 Mer N
+1	12110	220	1	0	ITV1 Anglia W	ITV1 Anglia W
+1	12120	221	1	0	ITV1 Yorks E	ITV1 Yorks E
+1	12140	222	1	0	ITV1 Central SW	ITV1 Central SW
+1	10210	250	1	0	STVNorth	STV North
+1	10220	251	1	0	STVWest	STV West
+1	10230	251	1	0	UTV	Ulster TV
+1	10221	252	1	0	STVEast	STV East
+1	10125	270	1	0	ITV1+1WSW	ITV1 +1 Westcountry South West
+1	10055	271	1	0	ITV1+1AE	ITV1 +1 Anglia East
+1	10145	272	1	0	ITV1+1CW	ITV1 +1 Central West
+1	10155	273	1	0	ITV1+1Ldn	ITV1 +1 London
+1	10255	274	1	0	ITV1+1Grn	ITV1 +1 Granada
+1	20715	275	1	0	ITV1+1Wal	ITV1 +1 Wales
+1	20735	276	1	0	ITV1+1TT	ITV1 +1 Tyne Tees
+1	20745	277	1	0	ITV1+1WW	ITV1 +1 Westcountry West
+1	12165	278	1	0	ITV1+1MS	ITV1 +1 Meridian South
 # Channel 4 regions
-1	9212	402	1	0	Channel 4	Channel 4
-1	9213	403	1	0	Channel 4	Channel 4
-1	9214	404	1	0	Channel 4	Channel 4
-1	9215	405	1	0	Channel 4	Channel 4
-1	9216	406	1	0	Channel 4	Channel 4
-1	8312	412	1	0	Channel 4 +1	Channel 4 +1
-1	8313	413	1	0	Channel 4 +1	Channel 4 +1
-1	8314	414	1	0	Channel 4 +1	Channel 4 +1
-1	8315	415	1	0	Channel 4 +1	Channel 4 +1
-1	8316	416	1	0	Channel 4 +1	Channel 4 +1
+1	9211	401	1	0	C4Ldn	Channel 4 London
+1	9213	403	1	0	C4Mid	Channel 4 Midlands
+1	9214	404	1	0	C4North	Channel 4 North
+1	9215	405	1	0	C4NI	Channel 4 Northern Ireland
+1	9216	406	1	0	C4Scot	Channel 4 Scotland
+1	8311	411	1	0	C4+1Ldn	Channel 4 +1 London
+1	8313	413	1	0	C4+1Mid	Channel 4 +1 Midlands
+1	8314	414	1	0	C4+1N	Channel 4 +1 North
+1	8315	415	1	0	C4+1NI	Channel 4 +1 Northern Ireland
+1	8316	416	1	0	C4+1Scot	Channel 4 +1 Scotland
 1	7160	420	1	0	S4C	S4C
 # Channel 5 regions
-1	7701	451	1	0	Channel 5	Channel 5
-1	7702	452	1	0	Channel 5	Channel 5
-1	7703	453	1	0	Channel 5	Channel 5
-1	7704	454	1	0	Channel 5	Channel 5
+1	7700	450	1	0	C5Ldn	Channel 5 London
+1	7702	452	1	0	C5North	Channel 5 North
+1	7703	453	1	0	C5Scot	Channel 5 Scotland
+1	7704	454	1	0	C5NI	Channel 5 Northern Ireland
 # BBC radio
-1	6751	700	1	0	BBC R1	BBC R1
-1	6752	702	1	0	BBC R2	BBC R2
-1	6753	703	1	0	BBC R3	BBC R3
-1	6754	704	1	0	BBC R4 FM	BBC R4 FM
-1	6755	714	1	0	BBC R4 LW	BBC R4 LW
-1	6757	720	1	0	BBC R Scot.	BBC R Scot.
-1	6758	721	1	0	BBC R Wales	BBC R Wales
-1	6759	722	1	0	BBC R Ulster	BBC R Ulster
-1	6760	723	1	0	BBC Asian	BBC Asian
-1	6401	705	1	0	BBC R5L	BBC R5L
-1	6464	715	1	0	BBC R5SX	BBC R5SX
-1	6767	706	1	0	BBC 6 Music	BBC 6 Music
-1	6768	707	1	0	BBC R4 Ex	BBC R4 Ex
-1	6761	710	1	0	BBC WS	BBC WS
-1	6766	711	1	0	BBC R1X	BBC R1X
-1	10357	720	1	0	BBC ALBA	BBC ALBA
-1	6763	721	1	0	BBC R Cymru	BBC R Cymru
-1	6769	722	1	0	BBC R n Gael	BBC R n Gael
-1	6770	723	1	0	BBC  London	BBC  London
+1	6450	701	1	0	BBC R1	BBC Radio 1
+1	6452	702	1	0	BBC R2	BBC Radio 2
+1	10380	703	1	0	BBC R3	BBC Radio 3
+1	10381	704	1	0	BBC R4	BBC Radio 4
+1	6401	705	1	0	BBC R5L	BBC Radio 5 Live
+1	10383	706	1	0	BBC R6Music	BBC Radio 6 Music
+1	10384	707	1	0	BBC R4Extra	BBC Radio 4 Extra
+1	10385	710	1	0	BBC WldSvc	BBC World Service
+1	6466	711	1	0	BBC R1X	BBC Radio 1Xtra
+1	10382	714	1	0	BBC R4LW	BBC Radio 4 LW
+1	6464	715	1	0	BBC R5SX	BBC Radio 5 Sports Extra
+1	10386	720	1	0	BBC RScot	BBC Radio Scotland
+1	10387	721	1	0	BBC RnGdhl	BBC Radio nan-Gaidheal
+1	10388	722	1	0	BBC RWales	BBC Radio Wales
+1	10389	723	1	0	BBC RCymru	BBC Radio Cymru
+1	10390	724	1	0	BBC RUlster	BBC Radio Ulster
+1	6460	725	1	0	BBC Asian	BBC Asian Network
+1	6470	730	1	0	BBC London	BBC London
 # Other radio
 1	53120	750	1	0	Absolute CR	Absolute CR
 1	50856	751	1	0	Kiss	Kiss
@@ -179,20 +187,17 @@
 1	52029	766	1	0	LBC 97.3	LBC 97.3
 1	52030	767	1	0	Heart	Heart
 1	52031	768	1	0	LBC News	LBC News
-#x 1	9549	769	1	0	Choice FM	Choice FM
-#x 1	9557	770	1	0	Solar Radio	Solar Radio
-#x 1	9559	771	1	0	XFM	XFM
+1	9549	769	1	0	Choice FM	Choice FM
+1	9557	770	1	0	Solar Radio	Solar Radio
+1	9559	771	1	0	XFM	XFM
 1	9560	772	1	0	Capital FM	Capital FM
 1	9561	773	1	0	Gold	Gold
 1	9568	774	1	0	Chill	Chill
 1	9570	775	1	0	Classic FM	Classic FM
 1	9575	776	1	0	Planet Rock	Planet Rock
 1	10238	777	1	0	talkSPORT	talkSPORT
-# C4 Olympics -- temporary
-1	7850	201200	1	0	C4 Para MV	C4 Para MV
-1	7854	201201	1	0	C4 Para 1	C4 Para 1
-1	7855	201202	1	0	C4 Para 2	C4 Para 2
-1	7856	201203	1	0	C4 Para 3	C4 Para 3
+# Other stuff
+1	6390	6390	1	0	BBC RedButton	BBC Red Button Stream
 
 # Source 2: Freeview
 
@@ -201,7 +206,6 @@
 2	4288	1003	1	0	BBC THREE	BBC THREE
 2	4544	1004	1	0	BBC FOUR	BBC FOUR
 2	8270	1011	1	0	ITV1	ITV1
-2	8271	1011	1	0	ITV1	ITV1
 2	8325	1012	1	0	ITV2	ITV2
 2	16048	1013	1	0	ITV3	ITV3
 2	28032	1014	1	0	ITV4	ITV4
@@ -224,7 +228,7 @@
 2	4736	1061	1	0	BBC Parl	BBC Parliament
 2	22080	1062	1	0	Sky News	Sky News
 2	27456	1063	1	0	Russia Today	Russia Today
-2	27712	1064	1	0	Al Jazeera Eng	Al Jazeera Eng
+2	27712	1064	1	0	Al Jazeera Eng	Al Jazeera English [Freeview]
 2	25792	1071	1	0	Yesterday	Yesterday
 2	22272	1072	1	0	Dave	Dave
 2	23936	1073	1	0	Dave ja vu	Dave ja vu
@@ -258,312 +262,464 @@
 2	14752	1727	1	0	Capital FM	Capital FM
 #
 # Note sure if I need these
-1	6315	6315	0	0	BBC TES 3	BBC TES 3
-1	6406	6406	0	0	ETV1	ETV1
 1	6407	6407	0	0	ETV2	ETV2
 1	10321	10321	0	0	ETV5	ETV5
 1	10371	10371	0	0	ETV6	ETV6
-1	6762	106762	0	0	ETV3	ETV3
-1	6780	106780	0	0	T7 STRM-0	T7 STRM-0
-1	6781	106781	0	0	T7 STRM-1	T7 STRM-1
-#
-# Stuff that I've deleted
-#x 11	52166	67	1	1	CH NINE UK	CH NINE UK
-#x 1	12130	112130	0	1	12130	12130
-#x 1	21250	261	1	1	More4+2	More4+2
-#x 1	4152	104152	0	1	EPG Background Audio	EPG Background Audio.
-#x 1	4215	104215	0	1	1303	1303
-#x 1	4505	104505	0	1	Sky	Sky
-#x 1	4515	104515	0	1	Sky Intro	Sky Intro
-#x 1	4525	104525	0	1	Sky Intro	Sky Intro
-#x 1	4624	104624	0	1	4624	4624
-#x 1	4704	104704	0	1	Sky News	Sky News
-#x 1	4706	104706	0	1	Sky News	Sky News
-#x 1	4740	104740	0	1	SNR	SNR
-#x 1	4741	104741	0	1	1441	1441
-#x 1	4751	104751	0	1	PICK TV	PICK TV
-#x 1	4753	104753	0	1	CommunityChnl	CommunityChnl
-#x 1	5004	105004	0	1	Sky Intro	Sky Intro
-#x 1	5007	105007	0	1	Chl Line-up	Chl Line-up
-#x 1	5107	105107	0	1	PICK TV+1	PICK TV+1
-#x 1	52001	152001	0	1	UCB TV	UCB TV
-#x 1	52004	152004	0	1	UMMAH CHNL	UMMAH CHNL
-#x 1	52006	152006	0	1	Jewelry Maker	Jewelry Maker
-#x 1	52007	152007	0	1	CBS Action	CBS Action
-#x 1	52008	152008	0	1	Get Lucky TV	Get Lucky TV
-#x 1	52040	152040	0	1	SportxxxGirls	SportxxxGirls
-#x 1	52050	152050	0	1	Northern Birds	Northern Birds
-#x 1	52056	152056	0	1	Controversial tv	Controversial tv
-#x 1	52060	152060	0	1	BET +1	BET +1
-#x 1	52070	152070	0	1	52070	52070
-#x 1	52100	152100	0	1	Travel Ch +1	Travel Ch +1
-#x 1	52102	152102	0	1	CBS Reality+1	CBS Reality+1
-#x 1	52104	152104	0	1	Olive TV	Olive TV
-#x 1	52106	152106	0	1	Gay Network	Gay Network
-#x 1	52109	152109	0	1	Thane Direct	Thane Direct
-#x 1	52110	152110	0	1	DAYSTAR	DAYSTAR
-#x 1	52132	152132	0	1	Panjab Radio	Panjab Radio
-#x 1	52168	152168	0	1	Bio+1	Bio+1
-#x 1	52170	152170	0	1	Sonlife	Sonlife
-#x 1	54051	154051	0	1	Showcase 2	Showcase 2
-#x 1	54053	154053	0	1	ATN Bangla UK	ATN Bangla UK
-#x 1	54054	154054	0	1	IQRA TV	IQRA TV
-#x 1	54060	154060	0	1	KICC TV	KICC TV
-#x 1	54062	154062	0	1	Channel 'S'	Channel 'S'
-#x 1	54063	154063	0	1	Peace TV	Peace TV
-#x 1	54064	154064	0	1	Peace TV Urdu	Peace TV Urdu
-#x 1	54067	154067	0	1	Faith World TV	Faith World TV
-#x 1	54068	154068	0	1	Channel i	Channel i
-#x 1	54069	154069	0	1	NTV	NTV
-#x 1	54070	154070	0	1	BEN	BEN
-#x 1	54101	154101	0	1	LiveXXX Babes	LiveXXX Babes
-#x 1	54102	154102	0	1	Travel Channel	Travel Channel
-#x 1	54103	154103	0	1	Retail TV	Retail TV
-#x 1	54106	154106	0	1	Argos TV	Argos TV
-#x 1	54107	154107	0	1	SAB TV	SAB TV
-#x 1	54112	154112	0	1	Best Direct	Best Direct
-#x 1	54113	154113	0	1	QVC Beauty	QVC Beauty
-#x 1	54115	154115	0	1	Bangla TV	Bangla TV
-#x 1	54120	154120	0	1	JML Cookshop	JML Cookshop
-#x 1	54135	154135	0	1	Believe TV	Believe TV
-#x 1	54140	154140	0	1	Horse & Country	Horse & Country
-#x 1	54150	154150	0	1	JML Direct	JML Direct
-#x 1	54165	154165	0	1	Fitness TV	Fitness TV
-#x 1	54170	154170	0	1	Glory TV	Glory TV
-#x 1	54203	154203	0	1	Noor TV	Noor TV
-#x 1	54208	154208	0	1	HiTV	HiTV
-#x 1	54210	154210	0	1	xxXpanded TV	xxXpanded TV
-#x 1	54211	154211	0	1	LOVEWORLD TV	LOVEWORLD TV
-#x 1	54212	154212	0	1	UCTV	UCTV
-#x 1	54215	154215	0	1	PTV Prime	PTV Prime
-#x 1	54219	154219	0	1	DM Digital	DM Digital
-#x 1	54221	154221	0	1	Madani Chnl	Madani Chnl
-#x 1	54222	154222	0	1	Vintage TV	Vintage TV
-#x 1	54300	154300	0	1	MATV National	MATV National
-#x 1	54315	154315	0	1	Pitch TV	Pitch TV
-#x 1	54330	154330	0	1	Studio 66 TV 2	Studio 66 TV 2
-#x 1	54345	154345	0	1	54345	54345
-#x 1	54360	154360	0	1	Pitch World	Pitch World
-#x 1	55102	155102	0	1	High Street TV	High Street TV
-#x 1	55104	155104	0	1	Gems TV Extra	Gems TV Extra
-#x 1	55108	155108	0	1	Brit Asia TV	Brit Asia TV
-#x 1	55109	155109	0	1	Sunrise TV	Sunrise TV
-#x 1	55110	155110	0	1	Gems TV	Gems TV
-#x 1	55111	155111	0	1	RAMP'd	RAMP'd
-#x 1	55112	155112	0	1	RAMP'd +2	RAMP'd +2
-#x 1	55113	155113	0	1	Clubland TV	Clubland TV
-#x 1	55114	155114	0	1	Massive R&B	Massive R&B
-#x 1	55128	155128	0	1	UCB Ireland	UCB Ireland
-#x 1	55132	155132	0	1	punjabi radio	punjabi radio
-#x 1	5522	105522	0	1	TCM 2	TCM 2
-#x 1	55232	155232	0	1	Cheeky Chat	Cheeky Chat
-#x 1	55236	155236	0	1	holiday+cruise	holiday+cruise
-#x 1	55238	155238	0	1	Filth	Filth
-#x 1	55242	155242	0	1	Cream	Cream
-#x 1	55246	155246	0	1	Dirty Talk	Dirty Talk
-#x 1	55248	155248	0	1	x	x
-#x 1	55249	155249	0	1	Flirt TV 2	Flirt TV 2
-#x 1	55250	155250	0	1	The Dept Store	The Dept Store
-#x 1	55252	155252	0	1	Luxury Life	Luxury Life
-#x 1	55271	155271	0	1	55271	55271
-#x 1	55525	155525	0	1	AAJ TAK	AAJ TAK
-#x 1	5801	105801	0	1	1871 SOM Test	1871 SOM Test
-#x 1	6711	106711	0	1	6711	6711
-#x 1	6712	106712	0	1	6712	6712
-#x 1	6713	106713	0	1	6713	6713
-#x 1	6714	106714	0	1	6714	6714
-#x 1	6715	106715	0	1	6715	6715
-#x 1	7230	107230	0	1	QVC	QVC
-#x 1	7231	107231	0	1	QVC Test	QVC Test
-#x 1	7250	107250	0	1	bid	bid
-#x 1	8010	108010	0	1	8010	8010
-#x 1	8400	108400	0	1	8039	8039
-#x 1	9009	109009	0	1	Sky 1 ETV Slot1	Sky 1 ETV Slot1
-#x 1	9531	109531	0	1	TV SHOP	TV SHOP
-#x 1	9533	109533	0	1	Rocks & Co 1	Rocks & Co 1
-#x 1	9535	109535	0	1	Record TV	Record TV
-#x 1	9536	109536	0	1	Sangat	Sangat
-#x 1	9537	109537	0	1	JML Home&DIY	JML Home&DIY
-#x 1	9546	109546	0	1	Recordbrazil	Recordbrazil
-#x 1	9548	109548	0	1	Sukh Sagar	Sukh Sagar
-#x 1	9551	109551	0	1	UCB UK	UCB UK
-#x 1	9552	109552	0	1	UCB Insp	UCB Insp
-#x 1	9553	109553	0	1	UCB Bible	UCB Bible
-#x 1	9554	109554	0	1	UCB Gospel	UCB Gospel
-#x 1	9563	109563	0	1	Khushkhabri	Khushkhabri
-#x 1	9566	109566	0	1	Kismat	Kismat
-#x 1	52010	152010	0	1	Greatest Hits TV	Greatest Hits TV
-#x 1	52013	152013	0	1	Chat Box	Chat Box
-#x 1	52027	152027	0	1	Sunrise	Sunrise
-#x 1	53138	53138	0	1	RTE R1 Extra	RTE R1 Extra
-#x 1	53300	53300	0	1	Flava	Flava
-#x 1	53305	53305	0	1	Bliss	Bliss
-#x 1	53310	53310	0	1	Scuzz	Scuzz
-#x 1	53315	53315	0	1	DanceNationTV	DanceNationTV
-#x 1	53320	53320	0	1	True Movies 1	True Movies 1
-#x 1	53325	53325	0	1	True Movies 2	True Movies 2
-#x 1	53335	53335	0	1	Chart Show+1	Chart Show+1
-#x 1	53340	53340	0	1	POP	POP
-#x 1	53345	53345	0	1	Tiny Pop +1	Tiny Pop +1
-#x 1	10225	10225	1	1	10225	10225
-#x 1	1413	1413	1	1	1413	1413
-#x 1	3851	3851	1	1	12130	12130
-#x 1	4615	4615	1	1	noname	noname		
-#x 1	4616	4616	1	1	noname	noname		
-#x 1	4617	4617	1	1	noname	noname		
-#x 1	4618	4618	1	1	noname	noname		
-#x 1	4619	4619	1	1	noname	noname		
-#x 1	4620	4620	1	1	noname	noname		
-#x 1	4645	4645	1	1	4645	4645
-#x 1	47000	47000	1	1	___4109	___4109
-#x 1	48000	48000	1	1	___4110	___4110
-#x 1	49000	49000	1	1	(sub b +1000)	(sub b +1000)
-#x 1	4927	4927	1	1	noname	noname		
-#x 1	50310	50310	1	1	ARY World	ARY World
-#x 1	50330	50330	1	1	Storm	Storm
-#x 1	50335	50335	1	1	Islam Channel	Islam Channel
-#x 1	50340	50340	1	1	Jewellery Ch.	Jewellery Ch.
-#x 1	50355	50355	1	1	CNC World	CNC World
-#x 1	50400	50400	1	1	Paversshoes.tv	Paversshoes.tv
-#x 1	50425	50425	1	1	V Channel	V Channel
-#x 1	50470	50470	1	1	Zing	Zing
-#x 1	5048	5048	1	1	Sky Active Ads	Sky Active Ads
-#x 1	50485	50485	1	1	GayXchange	GayXchange
-#x 1	50490	50490	1	1	Dating Channel	Dating Channel
-#x 1	50605	50605	1	1	Studio 66 TV 3	Studio 66 TV 3
-#x 1	50610	50610	1	1	Sikh Channel	Sikh Channel
-#x 1	50615	50615	1	1	Studio 66 TV 4	Studio 66 TV 4
-#x 1	50630	50630	1	1	Channel AKA	Channel AKA
-#x 1	50866	50866	1	1	Abu Dhabi TV	Abu Dhabi TV
-#x 1	50878	50878	1	1	PCNE Chinese	PCNE Chinese
-#x 1	50880	50880	1	1	Information TV	Information TV
-#x 1	50884	50884	1	1	Venus TV	Venus TV
-#x 1	50887	50887	1	1	Smooth	Smooth
-#x 1	50888	50888	1	1	Vox Africa	Vox Africa
-#x 1	50889	50889	1	1	50889	50889
-#x 1	50903	50903	1	1	CBS Drama	CBS Drama
-#x 1	51001	51001	1	1	mta-muslim tv	mta-muslim tv
-#x 1	51005	51005	1	1	Word Network	Word Network
-#x 1	51006	51006	1	1	SuperCasino	SuperCasino
-#x 1	51019	51019	1	1	Inspiration	Inspiration
-#x 1	51033	51033	1	1	TBN Europe	TBN Europe
-#x 1	51035	51035	1	1	GOD Channel	GOD Channel
-#x 1	51037	51037	1	1	UMP Movies	UMP Movies
-#x 1	51039	51039	1	1	Ahlebait TV	Ahlebait TV
-#x 1	51040	51040	1	1	UMP Stars	UMP Stars
-#x 1	51115	51115	1	1	Prem Spts Xtra	Prem Spts Xtra
-#x 1	52014	52014	1	1	Cinÿmoi movies	Cinÿmoi movies
-#x 1	52118	52118	1	1	SmartLive	SmartLive
-#x 1	52125	52125	1	1	Showcase	Showcase
-#x 1	52127	52127	1	1	revelation	revelation
-#x 1	52135	52135	1	1	B4U Music	B4U Music
-#x 1	52136	52136	1	1	EWTN	EWTN
-#x 1	52137	52137	1	1	EWTN	EWTN
-#x 1	52138	52138	1	1	OHTV	OHTV
-#x 1	52158	52158	1	1	Gospel Channel	Gospel Channel
-#x 1	52162	52162	1	1	Renault TV	Renault TV
-#x 1	52232	52232	1	1	Ideal World	Ideal World
-#x 1	52233	52233	1	1	Ideal Extra	Ideal Extra
-#x 1	52234	52234	1	1	Create & Craft	Create & Craft
-#x 1	52235	52235	1	1	theDealchannel	theDealchannel
-#x 1	52510	52510	1	1	price drop	price drop
-#x 1	52535	52535	1	1	ARY QTV	ARY QTV
-#x 1	52545	52545	1	1	speed auction	speed auction
-#x 1	52550	52550	1	1	Bloomberg	Bloomberg
-#x 1	53113	53113	1	1	Sahara One	Sahara One
-#x 1	53116	53116	1	1	PTV Global	PTV Global
-#x 1	53118	53118	1	1	jazeerachildren	jazeerachildren
-#x 1	53123	53123	1	1	Amrit Bani	Amrit Bani
-#x 1	53124	53124	1	1	InsightRadio	InsightRadio
-#x 1	53125	53125	1	1	CC Radio	CC Radio
-#x 1	53126	53126	1	1	Desi Radio	Desi Radio
-#x 1	53127	53127	1	1	Abs Rad 90s	Abs Rad 90s
-#x 1	53129	53129	1	1	Rainbow	Rainbow
-#x 1	53131	53131	1	1	Liberty	Liberty
-#x 1	53132	53132	1	1	Spectrum 1	Spectrum 1
-#x 1	53133	53133	1	1	TWR	TWR
-#x 1	53135	53135	1	1	WRN Europe	WRN Europe
-#x 1	53136	53136	1	1	Yorkshire R	Yorkshire R
-#x 1	53139	53139	1	1	Family Radio	Family Radio
-#x 1	53140	53140	1	1	Shop Radio	Shop Radio
-#x 1	53141	53141	1	1	Kanshi Radio	Kanshi Radio
-#x 1	53147	53147	1	1	NHK World HD	NHK World HD
-#x 1	53210	53210	1	1	Sumo TV	Sumo TV
-#x 1	53230	53230	1	1	BET	BET
-#x 1	53255	53255	1	1	Studio 66 TV 1	Studio 66 TV 1
-#x 1	53260	53260	1	1	Food Network	Food Network
-#x 1	53270	53270	1	1	Food Netwrk+1	Food Netwrk+1
-#x 1	53275	53275	1	1	CBS Reality	CBS Reality
-#x 1	53280	53280	1	1	wedding tv	wedding tv
-#x 1	53290	53290	1	1	Hidayat TV	Hidayat TV
-#x 1	53297	53297	1	1	Essex Babes	Essex Babes
-#x 1	53330	53330	1	1	Tiny Pop	Tiny Pop
-#x 1	53360	53360	1	1	PopGirl	PopGirl
-#x 1	53361	53361	1	1	?TV	?TV
-#x 1	53370	53370	1	1	PopGirl +1	PopGirl +1
-#x 1	53375	53375	1	1	True Ent	True Ent
-#x 1	53586	53586	1	1	Red Light Rio	Red Light Rio
-#x 1	53587	53587	1	1	Babe Guide	Babe Guide
-#x 1	53588	53588	1	1	Red Light 4	Red Light 4
-#x 1	53589	53589	1	1	CelebrityShop	CelebrityShop
-#x 1	53590	53590	1	1	Red Light 3	Red Light 3
-#x 1	53591	53591	1	1	PlayboyTV Chat	PlayboyTV Chat
-#x 1	53598	53598	1	1	Red Light 1	Red Light 1
-#x 1	55202	55202	1	1	Starz TV	Starz TV
-#x 1	55204	55204	1	1	Lucky Star	Lucky Star
-#x 1	55207	55207	1	1	Babestation	Babestation
-#x 1	55209	55209	1	1	Imagine Dil Se	Imagine Dil Se
-#x 1	55211	55211	1	1	ComedyCtlX+1	ComedyCtlX+1
-#x 1	55213	55213	1	1	Takbeer TV	Takbeer TV
-#x 1	55214	55214	1	1	My Channel	My Channel
-#x 1	55226	55226	1	1	Psychic Today	Psychic Today
-#x 1	55228	55228	1	1	Ahlulbayt TV	Ahlulbayt TV
-#x 1	55272	55272	1	1	Africa Channel	Africa Channel
-#x 1	55500	55500	1	1	Aastha	Aastha
-#x 1	55510	55510	1	1	The Active Ch	The Active Ch
-#x 1	55515	55515	1	1	9XM	9XM
-#x 1	55520	55520	1	1	Music India	Music India
-#x 1	6026	6026	1	1	Challenge+1	Challenge+1
-#x 1	6031	6031	1	1	Challenge	Challenge
-#x 1	9012	9012	1	1	9012	9012
-#x 1	9281	9281	1	1	c4 l	c4 l
-#x 1	9353	9353	1	1	noname	noname
-#x 2	13120	6	1	1	QVC	QVC
-#x 2	14272	7	1	1	bid	bid
-#x 2	14372	8	1	1	The Jewellery Channe	The Jewellery Channel
-#x 2	14498	9	1	1	QUEST	QUEST
-#x 2	14532	10	1	1	The Zone	The Zone
-#x 2	22208	11	1	1	Pick TV	Pick TV
-#x 2	14864	15	1	1	Mail Travel TV	Mail Travel TV
-#x 2	14976	16	1	1	Home	Home
-#x 2	15232	17	1	1	Television X	Television X
-#x 2	15504	18	1	1	ADULT Playboy	ADULT Playboy
-#x 2	23712	20	1	1	Really	Really
-#x 2	15552	21	1	1	G.O.L.D.	G.O.L.D.
-#x 2	16224	26	1	1	TOPUP Anytime1	TOPUP Anytime1
-#x 2	16288	27	1	1	TOPUP Anytime3	TOPUP Anytime3
-#x 2	16292	28	1	1	TOPUP Anytime5	TOPUP Anytime5
-#x 2	16300	30	1	1	TOPUP Anytime6	TOPUP Anytime6
-#x 2	24384	36	1	1	Create & Craft	Create & Craft
-#x 2	22464	37	1	1	price-drop	price-drop
-#x 2	24448	43	1	1	Gems TV	Gems TV
-#x 2	22226	46	1	1	Challenge	Challenge
-#x 2	23040	49	1	1	Food Network	Food Network
-#x 2	25728	58	1	1	VIVA	VIVA
-#x 2	25920	60	1	1	Ideal World	Ideal World
-#x 2	27168	70	1	1	4seven	4seven
-#x 2	27520	72	1	1	ADULT smileTV2	ADULT smileTV2
-#x 2	27744	74	1	1	Al Jazeera 6-8	Al Jazeera 6-8
-#x 2	27840	75	1	1	Rocks & Co 1	Rocks & Co 1
-#x 2	27904	76	1	1	ADULT Babestn	ADULT Babestn
-#x 2	27936	77	1	1	Big Deal	Big Deal
-#x 2	28288	80	1	1	QVC Beauty	QVC Beauty
-#x 2	28416	81	1	1	Racing UK	Racing UK
-#x 2	24064	87	1	1	COMMUNITY	COMMUNITY
-#x 2	22400	94	1	1	ADULT smileTV3	ADULT smileTV3
-#x 2	24256	96	1	1	ADULT PARTY	ADULT PARTY
-#x 2	24128	97	1	1	ADULT Blue	ADULT Blue
-#x 2	23904	98	1	1	ADULT Babestn2	ADULT Babestn2
 
-Do not update your database from this file until you have edited it to work
-with your system, and removed these two lines.
+#
+# The rest of the channels are unsorted.  Some of the channel numbers conflict with ones above.
+# They are set to invisible and not deleted.
+1	1413	1413	0	0	1413	1413
+1	3851	3851	0	0	12130	12130
+1	4121	3	0	0	Sky Box Office	Sky Box Office
+1	4122	2	0	0	Sky Box Office	Sky Box Office
+1	4123	4	0	0	Sky Box Office	Sky Box Office
+1	4128	4128	0	0	XXXFirst Timers	XXXFirst Timers
+1	4130	4130	0	0	Sky Box Office	Sky Box Office
+1	4131	4131	0	0	Playboy Lovers	Playboy Lovers
+1	4132	4132	0	0	XXX Mums	XXX Mums
+1	4136	4136	0	0	UK Swingers	UK Swingers
+1	4137	4137	0	0	Viewers' Wives	Viewers' Wives
+1	4139	16	0	0	Xplicit Nightly	Xplicit Nightly
+1	4142	4142	0	0	XXX Gay	XXX Gay
+1	4143	4143	0	0	Blue Tube	Blue Tube
+1	4145	17	0	0	Primetime	Primetime
+1	4148	4148	0	0	Anytime	Anytime
+1	4152	104152	0	0	EPG Background Audio	EPG Background Audio.
+1	4189	4189	0	0	IEPG data 1	IEPG data 1
+1	4190	4190	0	0	DCS1	DCS1
+1	4215	104215	0	0	1303	1303
+1	4405	4405	0	0	Sky Prem+1	Sky Prem+1
+1	4505	104505	0	0	Sky	Sky
+1	4515	104515	0	0	Sky Intro	Sky Intro
+1	4525	104525	0	0	Sky Intro	Sky Intro
+1	4590	4590	0	0	DCS5	DCS5
+1	4615	4615	0	0	noname	noname		
+1	4616	4616	0	0	noname	noname		
+1	4617	4617	0	0	noname	noname		
+1	4618	4618	0	0	noname	noname		
+1	4619	4619	0	0	noname	noname		
+1	4620	4620	0	0	noname	noname		
+1	4624	104624	0	0	4624	4624
+1	4645	4645	0	0	4645	4645
+1	4690	4690	0	0	DCS6	DCS6
+1	4704	104704	0	0	Sky News	Sky News
+1	4706	104706	0	0	Sky News	Sky News
+1	4707	4707	0	0	Sky News	Sky News
+1	4740	104740	0	0	SNR	SNR
+1	4741	104741	0	0	1441	1441
+1	4751	104751	0	0	PICK TV	PICK TV
+1	4753	104753	0	0	CommunityChnl	CommunityChnl
+1	4927	4927	0	0	noname	noname		
+1	5004	105004	0	0	Sky Intro	Sky Intro
+1	5007	105007	0	0	Chl Line-up	Chl Line-up
+1	5048	5048	0	0	Sky Active Ads	Sky Active Ads
+1	5106	5106	0	0	5106	5106
+1	5107	105107	0	0	PICK TV+1	PICK TV+1
+1	5490	5490	0	0	DCS14	DCS14
+1	5521	5521	0	0	Cartoonito	Cartoonito
+1	5522	105522	0	0	TCM 2	TCM 2
+1	5801	105801	0	0	1871 SOM Test	1871 SOM Test
+1	6026	6026	0	0	Challenge+1	Challenge+1
+1	6031	6031	0	0	Challenge	Challenge
+1	6306	6306	0	0	ETV1	ETV1
+1	6711	106711	0	0	6711	6711
+1	6712	106712	0	0	6712	6712
+1	6713	106713	0	0	6713	6713
+1	6714	106714	0	0	6714	6714
+1	6715	106715	0	0	6715	6715
+1	7230	107230	0	0	QVC	QVC
+1	7231	107231	0	0	QVC Test	QVC Test
+1	7235	7235	0	0	QVC Mosaic Test	QVC Mosaic Test
+1	7236	7236	0	0	QVC MOSAIC	QVC MOSAIC
+1	7250	107250	0	0	bid	bid
+1	8002	8002	0	0	Personal Organiser	Personal Organiser
+1	8003	8003	0	0	Vegas Roulette II	Vegas Roulette II
+1	8004	8004	0	0	Games Slot 13	Games Slot 13
+1	8005	8005	0	0	Cartoon Network Game	Cartoon Network Game 4
+1	8006	8006	0	0	Customer Service EPG	Customer Service EPG999
+1	8007	8007	0	0	Sky Bet Reg	Sky Bet Reg
+1	8008	8008	0	0	Help & Support	Help & Support
+1	8009	8009	0	0	TV Highlights	TV Highlights
+1	8010	108010	0	0	8010	8010
+1	8011	8011	0	0	Installation Survey	Installation Survey
+1	8012	8012	0	0	TV Picks 2009	TV Picks 2009
+1	8014	8014	0	0	Sky Upgrade Dal	Sky Upgrade Dal
+1	8015	8015	0	0	FAQ Development	FAQ Development
+1	8020	8020	0	0	Program Your Remote	Program Your Remote
+1	8021	8021	0	0	iSales Viewing Upgra	iSales Viewing Upgrade
+1	8026	8026	0	0	Sky Showcase Search	Sky Showcase Search
+1	8030	8030	0	0	Vegas Cleopatra	Vegas Cleopatra
+1	8031	8031	0	0	Games Slot 3	Games Slot 3
+1	8036	8036	0	0	Sky Active WML Brows	Sky Active WML Browser
+1	8039	8039	0	0	iText Sprint	iText Sprint
+1	8041	8041	0	0	iSales Hardware	iSales Hardware
+1	8042	8042	0	0	Vegas Blackjack	Vegas Blackjack
+1	8044	8044	0	0	eSales Test	eSales Test
+1	8045	8045	0	0	Sky Bet Active	Sky Bet Active
+1	8048	8048	0	0	Vegas Rainbow Riches	Vegas Rainbow Riches
+1	8049	8049	0	0	Vegas Video Poker	Vegas Video Poker
+1	8051	8051	0	0	Cartoon Network Game	Cartoon Network Game 1
+1	8058	8058	0	0	Sports Swiching Brow	Sports Swiching Browser
+1	8060	8060	0	0	High Score	High Score
+1	8061	8061	0	0	Sky Bet and Sky Vega	Sky Bet and Sky Vegas
+1	8062	8062	0	0	Games Slot 5	Games Slot 5
+1	8063	8063	0	0	Games Slot 7	Games Slot 7
+1	8065	8065	0	0	Sky Customer Service	Sky Customer Service
+1	8066	8066	0	0	Super 6's	Super 6's
+1	8072	8072	0	0	Wap Casino One	Wap Casino One
+1	8074	8074	0	0	Games Slot 6	Games Slot 6
+1	8075	8075	0	0	SOM Test Bert/Ernie	SOM Test Bert/Ernie
+1	8085	8085	0	0	Sky Active	Sky Active
+1	8088	8088	0	0	Portal Video 6	Portal Video 6
+1	8100	8100	0	0	Looking Local	Looking Local
+1	8103	8103	0	0	Vegas DOND	Vegas DOND
+1	8107	8107	0	0	Sky Games	Sky Games
+1	8108	8108	0	0	Sky Bet At The Races	Sky Bet At The Races
+1	8109	8109	0	0	Games Slot 9	Games Slot 9
+1	8115	8115	0	0	Game Slot 20	Game Slot 20
+1	8118	8118	0	0	Game Slot 18	Game Slot 18
+1	8124	8124	0	0	Games Slot 12	Games Slot 12
+1	8127	8127	0	0	Sky Customer Service	Sky Customer Service
+1	8128	8128	0	0	Game Slot 22	Game Slot 22
+1	8133	8133	0	0	Rewards from Sky	Rewards from Sky
+1	8134	8134	0	0	iSales Sky Products	iSales Sky Products
+1	8136	8136	0	0	Cartoon Network Game	Cartoon Network Game 2
+1	8138	8138	0	0	Cartoon Network Game	Cartoon Network Game 3
+1	8139	8139	0	0	Games Slot 25	Games Slot 25
+1	8140	8140	0	0	Game Slot 26	Game Slot 26
+1	8141	8141	0	0	Games Slot 19	Games Slot 19
+1	8142	8142	0	0	Games Slot 4 (catfla	Games Slot 4 (catflap)
+1	8144	8144	0	0	launchpad	launchpad
+1	8146	8146	0	0	Game Slot 17	Game Slot 17
+1	8151	8151	0	0	Games Slot 2	Games Slot 2
+1	8152	8152	0	0	Movies Xmas Vote	Movies Xmas Vote
+1	8162	8162	0	0	Vegas Cashino	Vegas Cashino
+1	8166	8166	0	0	Games Slot 10	Games Slot 10
+1	8169	8169	0	0	Games Slot 11	Games Slot 11
+1	8170	8170	0	0	Games Slot 14	Games Slot 14
+1	8175	8175	0	0	Vegas 3 Card poker	Vegas 3 Card poker
+1	8183	8183	0	0	Portal Video 5	Portal Video 5
+1	8184	8184	0	0	Pin Reminder Service	Pin Reminder Service
+1	8187	8187	0	0	Dummy Eire Service	Dummy Eire Service
+1	8188	8188	0	0	Sky Itext Holidays	Sky Itext Holidays
+1	8191	8191	0	0	Sports Generic Apps	Sports Generic Apps
+1	8192	8192	0	0	Games Slot 1	Games Slot 1
+1	8195	8195	0	0	Movie Quiz	Movie Quiz
+1	8197	8197	0	0	Games Slot 21	Games Slot 21
+1	8199	8199	0	0	Portal Video 2	Portal Video 2
+1	8200	8200	0	0	Sky Hub Video	Sky Hub Video
+1	8207	8207	0	0	Games Slot 16	Games Slot 16
+1	8216	8216	0	0	Highlight Videos	Highlight Videos
+1	8218	8218	0	0	Sky News Active iTex	Sky News Active iText Quad
+1	8399	8399	0	0	Vegas Monty Python	Vegas Monty Python
+1	8400	108400	0	0	8039	8039
+1	9009	109009	0	0	Sky 1 ETV Slot1	Sky 1 ETV Slot1
+1	9012	9012	0	0	9012	9012
+1	9281	9281	0	0	c4 l	c4 l
+1	9321	9321	0	0	Sky Intro Active	Sky Intro Active
+1	9353	9353	0	0	noname	noname
+1	9531	109531	0	0	TV SHOP	TV SHOP
+1	9533	109533	0	0	Rocks & Co 1	Rocks & Co 1
+1	9535	109535	0	0	Record TV	Record TV
+1	9536	109536	0	0	Sangat	Sangat
+1	9537	109537	0	0	JML Home&DIY	JML Home&DIY
+1	9546	109546	0	0	Recordbrazil	Recordbrazil
+1	9548	109548	0	0	Sukh Sagar	Sukh Sagar
+1	9551	109551	0	0	UCB UK	UCB UK
+1	9552	109552	0	0	UCB Insp	UCB Insp
+1	9553	109553	0	0	UCB Bible	UCB Bible
+1	9554	109554	0	0	UCB Gospel	UCB Gospel
+1	9563	109563	0	0	Khushkhabri	Khushkhabri
+1	9566	109566	0	0	Kismat	Kismat
+1	10079	10079	0	0	ITVi Stream 44	ITVi Stream 44
+1	10225	10225	0	0	10225	10225
+1	12130	112130	0	0	12130	12130
+1	47000	47000	0	0	___4109	___4109
+1	48000	48000	0	0	___4110	___4110
+1	49000	49000	0	0	(sub b +1000)	(sub b +1000)
+1	50310	50310	0	0	ARY World	ARY World
+1	50330	50330	0	0	Storm	Storm
+1	50335	50335	0	0	Islam Channel	Islam Channel
+1	50340	50340	0	0	Jewellery Ch.	Jewellery Ch.
+1	50355	50355	0	0	CNC World	CNC World
+1	50400	50400	0	0	Paversshoes.tv	Paversshoes.tv
+1	50425	50425	0	0	V Channel	V Channel
+1	50470	50470	0	0	Zing	Zing
+1	50480	50480	0	0	Zee Cafÿ	Zee Cafÿ
+1	50485	50485	0	0	GayXchange	GayXchange
+1	50490	50490	0	0	Dating Channel	Dating Channel
+1	50605	50605	0	0	Studio 66 TV 3	Studio 66 TV 3
+1	50610	50610	0	0	Sikh Channel	Sikh Channel
+1	50615	50615	0	0	Studio 66 TV 4	Studio 66 TV 4
+1	50630	50630	0	0	Channel AKA	Channel AKA
+1	50866	50866	0	0	Abu Dhabi TV	Abu Dhabi TV
+1	50878	50878	0	0	PCNE Chinese	PCNE Chinese
+1	50880	50880	0	0	Information TV	Information TV
+1	50884	50884	0	0	Venus TV	Venus TV
+1	50887	50887	0	0	Smooth	Smooth
+1	50888	50888	0	0	Vox Africa	Vox Africa
+1	50889	50889	0	0	50889	50889
+1	50903	50903	0	0	CBS Drama	CBS Drama
+1	51001	51001	0	0	mta-muslim tv	mta-muslim tv
+1	51005	51005	0	0	Word Network	Word Network
+1	51006	51006	0	0	SuperCasino	SuperCasino
+1	51019	51019	0	0	Inspiration	Inspiration
+1	51033	51033	0	0	TBN Europe	TBN Europe
+1	51035	51035	0	0	GOD Channel	GOD Channel
+1	51037	51037	0	0	UMP Movies	UMP Movies
+1	51039	51039	0	0	Ahlebait TV	Ahlebait TV
+1	51040	51040	0	0	UMP Stars	UMP Stars
+1	51113	51113	0	0	Premier Sports	Premier Sports
+1	51115	51115	0	0	Prem Spts Xtra	Prem Spts Xtra
+1	52001	152001	0	0	UCB TV	UCB TV
+1	52004	152004	0	0	UMMAH CHNL	UMMAH CHNL
+1	52006	152006	0	0	Jewelry Maker	Jewelry Maker
+1	52007	152007	0	0	CBS Action	CBS Action
+1	52008	152008	0	0	Get Lucky TV	Get Lucky TV
+1	52010	152010	0	0	Greatest Hits TV	Greatest Hits TV
+1	52013	152013	0	0	Chat Box	Chat Box
+1	52014	52014	0	0	Cinÿmoi movies	Cinÿmoi movies
+1	52027	152027	0	0	Sunrise	Sunrise
+1	52040	152040	0	0	SportxxxGirls	SportxxxGirls
+1	52050	152050	0	0	Northern Birds	Northern Birds
+1	52056	152056	0	0	Controversial tv	Controversial tv
+1	52060	152060	0	0	BET +1	BET +1
+1	52070	152070	0	0	52070	52070
+1	52100	152100	0	0	Travel Ch +1	Travel Ch +1
+1	52102	152102	0	0	CBS Reality+1	CBS Reality+1
+1	52104	152104	0	0	Olive TV	Olive TV
+1	52106	152106	0	0	Gay Network	Gay Network
+1	52107	52107	0	0	Channel AKA	Channel AKA
+1	52109	152109	0	0	Thane Direct	Thane Direct
+1	52110	152110	0	0	DAYSTAR	DAYSTAR
+1	52118	52118	0	0	SmartLive	SmartLive
+1	52123	52123	0	0	52123	52123
+1	52124	52124	0	0	52124	52124
+1	52125	52125	0	0	Showcase	Showcase
+1	52127	52127	0	0	revelation	revelation
+1	52132	152132	0	0	Panjab Radio	Panjab Radio
+1	52135	52135	0	0	B4U Music	B4U Music
+1	52136	52136	0	0	EWTN	EWTN
+1	52137	52137	0	0	EWTN	EWTN
+1	52138	52138	0	0	OHTV	OHTV
+1	52158	52158	0	0	Gospel Channel	Gospel Channel
+1	52162	52162	0	0	Renault TV	Renault TV
+1	52168	152168	0	0	Bio+1	Bio+1
+1	52170	152170	0	0	Sonlife	Sonlife
+1	52232	52232	0	0	Ideal World	Ideal World
+1	52233	52233	0	0	Ideal Extra	Ideal Extra
+1	52234	52234	0	0	Create & Craft	Create & Craft
+1	52235	52235	0	0	theDealchannel	theDealchannel
+1	52500	52500	0	0	GEO UK	GEO UK
+1	52510	52510	0	0	price drop	price drop
+1	52535	52535	0	0	ARY QTV	ARY QTV
+1	52545	52545	0	0	speed auction	speed auction
+1	52550	52550	0	0	Bloomberg	Bloomberg
+1	53113	53113	0	0	Sahara One	Sahara One
+1	53116	53116	0	0	PTV Global	PTV Global
+1	53118	53118	0	0	jazeerachildren	jazeerachildren
+1	53123	53123	0	0	Amrit Bani	Amrit Bani
+1	53124	53124	0	0	InsightRadio	InsightRadio
+1	53125	53125	0	0	CC Radio	CC Radio
+1	53126	53126	0	0	Desi Radio	Desi Radio
+1	53127	53127	0	0	Abs Rad 90s	Abs Rad 90s
+1	53129	53129	0	0	Rainbow	Rainbow
+1	53131	53131	0	0	Liberty	Liberty
+1	53132	53132	0	0	Spectrum 1	Spectrum 1
+1	53133	53133	0	0	TWR	TWR
+1	53135	53135	0	0	WRN Europe	WRN Europe
+1	53136	53136	0	0	Yorkshire R	Yorkshire R
+1	53138	53138	0	0	RTE R1 Extra	RTE R1 Extra
+1	53139	53139	0	0	Family Radio	Family Radio
+1	53140	53140	0	0	Shop Radio	Shop Radio
+1	53141	53141	0	0	Kanshi Radio	Kanshi Radio
+1	53147	53147	0	0	NHK World HD	NHK World HD
+1	53148	53148	0	0	53148	53148
+1	53210	53210	0	0	Sumo TV	Sumo TV
+1	53230	53230	0	0	BET	BET
+1	53255	53255	0	0	Studio 66 TV 1	Studio 66 TV 1
+1	53260	53260	0	0	Food Network	Food Network
+1	53270	53270	0	0	Food Netwrk+1	Food Netwrk+1
+1	53275	53275	0	0	CBS Reality	CBS Reality
+1	53280	53280	0	0	wedding tv	wedding tv
+1	53290	53290	0	0	Hidayat TV	Hidayat TV
+1	53297	53297	0	0	Essex Babes	Essex Babes
+1	53300	53300	0	0	Flava	Flava
+1	53305	53305	0	0	Bliss	Bliss
+1	53310	53310	0	0	Scuzz	Scuzz
+1	53315	53315	0	0	DanceNationTV	DanceNationTV
+1	53320	53320	0	0	True Movies 1	True Movies 1
+1	53325	53325	0	0	True Movies 2	True Movies 2
+1	53330	53330	0	0	Tiny Pop	Tiny Pop
+1	53335	53335	0	0	Chart Show+1	Chart Show+1
+1	53340	53340	0	0	POP	POP
+1	53345	53345	0	0	Tiny Pop +1	Tiny Pop +1
+1	53360	53360	0	0	PopGirl	PopGirl
+1	53361	53361	0	0	?TV	?TV
+1	53370	53370	0	0	PopGirl +1	PopGirl +1
+1	53375	53375	0	0	True Ent	True Ent
+1	53585	53585	0	0	53585	53585
+1	53586	53586	0	0	Red Light Rio	Red Light Rio
+1	53587	53587	0	0	Babe Guide	Babe Guide
+1	53588	53588	0	0	Red Light 4	Red Light 4
+1	53589	53589	0	0	CelebrityShop	CelebrityShop
+1	53590	53590	0	0	Red Light 3	Red Light 3
+1	53591	53591	0	0	PlayboyTV Chat	PlayboyTV Chat
+1	53598	53598	0	0	Red Light 1	Red Light 1
+1	54051	154051	0	0	Showcase 2	Showcase 2
+1	54053	154053	0	0	ATN Bangla UK	ATN Bangla UK
+1	54054	154054	0	0	IQRA TV	IQRA TV
+1	54060	154060	0	0	KICC TV	KICC TV
+1	54062	154062	0	0	Channel 'S'	Channel 'S'
+1	54063	154063	0	0	Peace TV	Peace TV
+1	54064	154064	0	0	Peace TV Urdu	Peace TV Urdu
+1	54067	154067	0	0	Faith World TV	Faith World TV
+1	54068	154068	0	0	Channel i	Channel i
+1	54069	154069	0	0	NTV	NTV
+1	54070	154070	0	0	BEN	BEN
+1	54071	54071	0	0	54071	54071
+1	54101	154101	0	0	LiveXXX Babes	LiveXXX Babes
+1	54102	154102	0	0	Travel Channel	Travel Channel
+1	54103	154103	0	0	Retail TV	Retail TV
+1	54106	154106	0	0	Argos TV	Argos TV
+1	54107	154107	0	0	SAB TV	SAB TV
+1	54112	154112	0	0	Best Direct	Best Direct
+1	54113	154113	0	0	QVC Beauty	QVC Beauty
+1	54115	154115	0	0	Bangla TV	Bangla TV
+1	54120	154120	0	0	JML Cookshop	JML Cookshop
+1	54135	154135	0	0	Believe TV	Believe TV
+1	54140	154140	0	0	Horse & Country	Horse & Country
+1	54150	154150	0	0	JML Direct	JML Direct
+1	54165	154165	0	0	Fitness TV	Fitness TV
+1	54170	154170	0	0	Glory TV	Glory TV
+1	54203	154203	0	0	Noor TV	Noor TV
+1	54208	154208	0	0	HiTV	HiTV
+1	54210	154210	0	0	xxXpanded TV	xxXpanded TV
+1	54211	154211	0	0	LOVEWORLD TV	LOVEWORLD TV
+1	54212	154212	0	0	UCTV	UCTV
+1	54215	154215	0	0	PTV Prime	PTV Prime
+1	54219	154219	0	0	DM Digital	DM Digital
+1	54221	154221	0	0	Madani Chnl	Madani Chnl
+1	54222	154222	0	0	Vintage TV	Vintage TV
+1	54300	154300	0	0	MATV National	MATV National
+1	54315	154315	0	0	Pitch TV	Pitch TV
+1	54330	154330	0	0	Studio 66 TV 2	Studio 66 TV 2
+1	54345	154345	0	0	54345	54345
+1	54350	54350	0	0	54350	54350
+1	54360	154360	0	0	Pitch World	Pitch World
+1	55001	5	0	0	Gospel Channel	Gospel Channel
+1	55002	6	0	0	UCTV	UCTV
+1	55003	7	0	0	PTV Prime	PTV Prime
+1	55004	8	0	0	HiTV	HiTV
+1	55005	9	0	0	CH NINE UK	CH NINE UK
+1	55007	10	0	0	Noor TV	Noor TV
+1	55008	11	0	0	ATN Bangla UK	ATN Bangla UK
+1	55009	12	0	0	Channel i	Channel i
+1	55010	13	0	0	NTV	NTV
+1	55011	14	0	0	Madani Chnl	Madani Chnl
+1	55012	15	0	0	CHSTV	CHSTV
+1	55020	55020	0	0	?	?	
+1	55102	155102	0	0	High Street TV	High Street TV
+1	55104	155104	0	0	Gems TV Extra	Gems TV Extra
+1	55108	155108	0	0	Brit Asia TV	Brit Asia TV
+1	55109	155109	0	0	Sunrise TV	Sunrise TV
+1	55110	155110	0	0	Gems TV	Gems TV
+1	55111	155111	0	0	RAMP'd	RAMP'd
+1	55112	155112	0	0	RAMP'd +2	RAMP'd +2
+1	55113	155113	0	0	Clubland TV	Clubland TV
+1	55114	155114	0	0	Massive R&B	Massive R&B
+1	55128	155128	0	0	UCB Ireland	UCB Ireland
+1	55132	155132	0	0	punjabi radio	punjabi radio
+1	55202	55202	0	0	Starz TV	Starz TV
+1	55204	55204	0	0	Lucky Star	Lucky Star
+1	55207	55207	0	0	Babestation	Babestation
+1	55209	55209	0	0	Imagine Dil Se	Imagine Dil Se
+1	55211	55211	0	0	ComedyCtlX+1	ComedyCtlX+1
+1	55213	55213	0	0	Takbeer TV	Takbeer TV
+1	55214	55214	0	0	My Channel	My Channel
+1	55226	55226	0	0	Psychic Today	Psychic Today
+1	55228	55228	0	0	Ahlulbayt TV	Ahlulbayt TV
+1	55231	55231	0	0	Television X	Television X
+1	55232	155232	0	0	Cheeky Chat	Cheeky Chat
+1	55233	55233	0	0	?	?	
+1	55234	19	0	0	TVX Brits	TVX Brits
+1	55235	55235	0	0	redhot amateur	redhot amateur
+1	55236	155236	0	0	holiday+cruise	holiday+cruise
+1	55238	155238	0	0	Filth	Filth
+1	55239	22	0	0	redhot mums	redhot mums
+1	55240	23	0	0	redhot 18s	redhot 18s
+1	55242	155242	0	0	Cream	Cream
+1	55246	155246	0	0	Dirty Talk	Dirty Talk
+1	55248	155248	0	0	x	x
+1	55249	155249	0	0	Flirt TV 2	Flirt TV 2
+1	55250	155250	0	0	The Dept Store	The Dept Store
+1	55251	55251	0	0	N'toons Replay	N'toons Replay
+1	55252	155252	0	0	Luxury Life	Luxury Life
+1	55271	155271	0	0	55271	55271
+1	55272	55272	0	0	Africa Channel	Africa Channel
+1	55273	55273	0	0	Nicktoons	Nicktoons
+1	55274	31	0	0	xxXpanded TV	xxXpanded TV
+1	55500	55500	0	0	Aastha	Aastha
+1	55510	55510	0	0	The Active Ch	The Active Ch
+1	55515	55515	0	0	9XM	9XM
+1	55520	55520	0	0	Music India	Music India
+1	55525	155525	0	0	AAJ TAK	AAJ TAK
+2	8577	203	0	0	Gay Rabbit	Gay Rabbit
+2	8634	202	0	0	Rabbit	Rabbit
+2	13120	6	0	0	QVC	QVC
+2	14272	7	0	0	bid	bid
+2	14372	8	0	0	The Jewellery Channe	The Jewellery Channel
+2	14498	9	0	0	QUEST	QUEST
+2	14532	10	0	0	The Zone	The Zone
+2	14784	201	0	0	Holidays TV	Holidays TV
+2	14816	204	0	0	1-2-1 Dating	1-2-1 Dating
+2	14864	15	0	0	Mail Travel TV	Mail Travel TV
+2	14912	228	0	0	Christian	Christian
+2	14928	229	0	0	CONNECT 2	CONNECT 2
+2	14944	230	0	0	VISION2	VISION2
+2	14976	16	0	0	Home	Home
+2	15056	234	0	0	CONNECT 4	CONNECT 4
+2	15072	235	0	0	GOD TV	GOD TV
+2	15088	236	0	0	SONY SAB	SONY SAB
+2	15200	170	0	0	ADULT Section	ADULT Section
+2	15232	17	0	0	Television X	Television X
+2	15504	18	0	0	ADULT Playboy	ADULT Playboy
+2	15552	21	0	0	G.O.L.D.	G.O.L.D.
+2	16096	34	0	0	ESPN	ESPN
+2	16144	50	0	0	Marketplace	Marketplace
+2	16224	26	0	0	TOPUP Anytime1	TOPUP Anytime1
+2	16288	27	0	0	TOPUP Anytime3	TOPUP Anytime3
+2	16292	28	0	0	TOPUP Anytime5	TOPUP Anytime5
+2	16300	30	0	0	TOPUP Anytime6	TOPUP Anytime6
+2	22208	11	0	0	Pick TV	Pick TV
+2	22226	46	0	0	Challenge	Challenge
+2	22400	94	0	0	ADULT smileTV3	ADULT smileTV3
+2	22464	37	0	0	price-drop	price-drop
+2	23040	49	0	0	Food Network	Food Network
+2	23120	91	0	0	91	91
+2	23184	100	0	0	100	100
+2	23680	206	0	0	Sky Text	Sky Text
+2	23712	20	0	0	Really	Really
+2	23904	98	0	0	ADULT Babestn2	ADULT Babestn2
+2	24032	32	0	0	Big Deal	Big Deal
+2	24064	87	0	0	COMMUNITY	COMMUNITY
+2	24128	97	0	0	ADULT Blue	ADULT Blue
+2	24256	96	0	0	ADULT PARTY	ADULT PARTY
+2	24384	36	0	0	Create & Craft	Create & Craft
+2	24448	43	0	0	Gems TV	Gems TV
+2	25728	58	0	0	VIVA	VIVA
+2	25920	60	0	0	Ideal World	Ideal World
+2	27168	70	0	0	4seven	4seven
+2	27520	72	0	0	ADULT smileTV2	ADULT smileTV2
+2	27584	199	0	0	ADULT Section	ADULT Section
+2	27744	74	0	0	Al Jazeera 6-8	Al Jazeera 6-8
+2	27808	55	0	0	ARGOS TV	ARGOS TV
+2	27840	75	0	0	Rocks & Co 1	Rocks & Co 1
+2	27904	76	0	0	ADULT Babestn	ADULT Babestn
+2	27936	77	0	0	Big Deal	Big Deal
+2	28288	80	0	0	QVC Beauty	QVC Beauty
+2	28320	225	0	0	VISION	VISION
+2	28352	226	0	0	CCTV	CCTV
+2	28384	227	0	0	Sports	Sports
+2	28416	81	0	0	Racing UK	Racing UK

@@ -35,7 +35,7 @@ use MythTV;
 
 use feature 'unicode_strings';  # Because we're toying with strings that may be in unicode
 
-my $version = '0.3.1';
+my $version = '0.3.2';
 
 $| = 1; # instant output
 
@@ -55,8 +55,11 @@ $opt{help}       = 0;
 $opt{bbc1}       = 'south';
 $opt{bbc2}       = 'england';
 $opt{itv}        = 'meridian';
+$opt{stv}        = 'west';
+$opt{c4}         = 'south&east';
+$opt{c5}         = 'midlands&south';
 
-my $GetOptionsResult = GetOptions (\%opt,
+my $GetOptionsOK = GetOptions (\%opt,
     'renew!',
     'icondir=s',
     'geticons!',
@@ -70,7 +73,11 @@ my $GetOptionsResult = GetOptions (\%opt,
     'bbc1=s',
     'bbc2=s',
     'itv=s',
+    'stv=s',
+    'c4=s',
+    'c5=s',
 );
+exit 1 if !$GetOptionsOK;
 
 sub usage {
     print <<eot;
@@ -102,12 +109,22 @@ Options, with default values in brackets.
                   [/mythtv/channels]
 --grabber <cmd>  Command to retrieve xmltv channel listings
                   [tv_grab_uk_rt --list-channels --config-file /dev/null 2> /dev/null]
---bbc1 <reg>     \\  Default regions, e.g. 'south' for BBC One South, / [south]
---bbc2 <reg>      > 'meridian' for ITV1 Meridian etc.               <  [england]
---itv  <reg>     /  Case is ignored, and spaces are removed.         \\ [meridian]
+--bbc1 <reg>     \\                                                      / [south]
+--bbc2 <reg>      |  Default regions, e.g. 'south' for BBC One South,  |  [england]
+--itv  <reg>       > Case is ignored, and spaces are removed.         <   [meridian]
+--stv  <reg>      |                                                    |  [west]
+--c4   <reg>      |                                                    |  [south&east]
+--c5   <reg>     /                                                      \\ [midlands&south]
 --help           Display this help text [no]
 --verbose        Print extra progress information [no]
 --debug          Print copious debugging information [no]
+
+NOTE: If --dbupdate and --fileupdate are used together, the database is first updated
+      with details from the channel file, and then any unmatched channels in the
+      database are added to the end of the file.
+NOTE: The region options (--bbc1 etc.) do NOT select a particular serviceid as 
+      the default, they merely allow you to name your local region as just e.g. 'BBC 1'
+      rather than 'BBC 1 South'.
 eot
 }
 
@@ -118,15 +135,16 @@ my $header = <<eot;
 # Channels file for use by mythupchuk, created $timestamp
 # vim:ts=12
 #
-# DON'T EDIT SOURCEID OR SERVICEID unless you know what you're doing !!!
-# And be careful editing NAME otherwise it won't match its XMLTVID
+# DON'T EDIT SOURCEID OR SERVICEID unless you know what you're doing!!!
+# And be careful editing NAME otherwise it won't match its XMLTVID.
 #
 # Blank lines and lines beginning with '#' are ignored,
 # except for lines beginning with '#x' which indicates a channel that is 
 # no longer in the database: such a line will be automatically un-commented
 # if the channel reappears in the database (after a re-tune, for example).
 #
-# Columns MUST be separated by TABs.
+# Columns MUST be separated by a single TAB.
+#
 #sourceid\tserviceid\tchannum\tvisible\tdelete\tcallsign\tname\txmltvid\ticon
 eot
 
@@ -156,7 +174,7 @@ if (!-r $inputFile) {
     print "ERROR: Input file '$inputFile' is not readable\n";
     exit 1;
 }
-if ($opt{geticons} && (!-d $opt{icondir} or !-w _)) {
+if ($opt{geticons} and !(-d -w $opt{icondir})) {
     print "ERROR: '$opt{icondir}' is not a writable directory to put icons in\n";
     exit 1;
 }
@@ -289,17 +307,17 @@ eval {    # trap database errors
                 foreach my $chanid (sort keys %{$dbR->{$sourceid}{$serviceid}}) {
                     my $row = $dbR->{$sourceid}{$serviceid}{$chanid};
                     if (!$row->{matched}) {
-                        # Make sure callsign and name are not blank
-                        my $callsign = $row->{callsign} || 'no callsign';
-                        my $name     = $row->{name}     || 'no name';
+                        # Make sure callsign and name are defined and not blank
+                        my $callsign = $row->{callsign} || $row->{serviceid};
+                        my $name     = $row->{name}     || "unknown-$row->{serviceid}";
                         push @rows, {
                             sourceid  => $row->{sourceid},
                             serviceid => $row->{serviceid},
                             channum   => $row->{channum},
                             visible   => $row->{visible},
                             delete    => 0,
-                            callsign  => $row->{callsign} || '',    # make sure it's not blank
-                            name      => $row->{name}     || '',    # ditto
+                            callsign  => $callsign,
+                            name      => $name,
                         };
                     }
                 }
@@ -600,13 +618,12 @@ sub hackit {
     # NOTE some names have regex characters such as '*' and '+'  in them
     my $sqname = shift;
     for ($sqname) {
-        # Return this name:                     if the name matches this pattern:
-        return 'itv1meridian'                   if /^itv1meridian/; # ignore trailing 'S' etc.
-        return 'itv1+1(meridian/anglia)'        if /^itv1\+1$/;     # Note: other ITV1+1's aren't helpfully named
-        return 'itv1hd(meridian/anglia)'        if /^itv1hd$/;      # Note: ditto
+        # Return this name as                   if the name in the file
+        # the xmltv name:                       matches this pattern:
         return 'cbbc'                           if /^cbbc/;         # ignore trailing 'channel'
         return 'bbcparliament'                  if /^bbcparl/;      # ignore ' etc.
         return 'aljazeeraenglish'               if /^aljazeeraeng$/; # There's a separate freeview one
+                                                                     # -- requires an edit in the channels file
         return 'cnninternational'               if /^cnn$/;
         return 'cnbceurope'                     if /^cnbc$/;
         return 'propellertv'                    if /^propeller$/;
@@ -633,17 +650,34 @@ sub hackit {
         return "bbctwo$opt{bbc2}"               if /^bbc2$/;        # BBC2 - default region
         return "bbctwo$opt{bbc2}"               if /^bbctwo$/;      # BBC TWO - default region
         return "bbctwo$1"                       if /^bbc2(.*)$/;    # BBC2 catch-all
-        # ITV
+        # ITV 
         return 'itv1channeltelevision'          if /^itvchannelis$/;
-        return 'itv1central'                    if /^itv1central/;  # central s|e|w  all become just central
+        return 'itv1central'                    if /^itv1central/;  # central s|e|w|sw  all become just central
         return 'itv1westcountry'                if /^itv1wcountry$/;
-        return 'itv1yorkshire'                  if /^itv1yorksw$/;
-        return 'itv1meridian'                   if /^itv1merse$/;   # probably
+        return 'itv1yorkshire'                  if /^itv1york/;     # yorks w|e both become just yorkshire
+        return 'itv1meridian'                   if /^itv1meridian/; # meridianse and merse both become meridian
+        return 'itv1anglia'                     if /^itv1anglia/;   # anglia e|w both become anglia
         return "itv1$opt{itv}"                  if /^itv1$/;        # ITV1 - default region
-        return 'itv1+1(meridian/anglia)'        if /^itv1\+1$/;     # need to distinguish regions from the serviceid
-        return 'stvcentral'                     if /^stv$/;         # or stv north...
-        return 'stvcentral+1'                   if /^stv\+1$/;
-        # (likewise channel 4 regions, but only one on xmltv list)
+        return "itv1+1$opt{itv}"                if /^itv1+1$/;      # ITV1+1 - default region
+        # (there are also ITV channels with brackets in the xmltv name -- don't know what they're for)
+        # Channel 4 -- single listing in xmltv, regions just have different adverts, so ignore any trailing region
+        # (the tuning process just returns e.g. name='Channel 4' -- any regions require editing the channels file
+        # by looking up the service id on LyngSat or similar)
+        return 'channel4+1'                     if /^channel4+1/;
+        return 'channel4'                       if /^channel4/;
+        return 'channel4hd'                     if /^channel4hd/;
+        return "channel4$opt{c4}"               if /^channel4$/;    # C4 defaults;
+        return "channel4$opt{c4}+1"             if /^channel4+1$/;
+        # Channel 5 -- single listing in xmltv, regions just have different adverts, so ignore any trailing region
+        return 'channel5+1'                     if /^channel5+1/;
+        return 'channel5'                       if /^channel5/;
+        return "channel5$opt{c5}"               if /^channel5$/;    # C5 defaults;
+        return "channel5$opt{c5}+1"             if /^channel5+1$/;
+        # Regional channels
+        # STV regions require manual editing of the channels file with reference to LyngSat
+        return "stv$opt{stv}"                   if /^stv$/;         # STV defaults
+        return "stv$opt{stv}+1"                 if /^stv+1$/;
+
         # sadly, there are no radio listings on xmltv (but EIT provides them)
     } 
     return $sqname;

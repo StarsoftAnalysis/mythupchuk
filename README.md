@@ -159,4 +159,4 @@ is licensed under the GNU Free Documentation Licence version 1.3 or later.
 It has been written by Chris Dennis, chris@starsoftanalysis.co.uk.  Please feel free
 to contact the author at that address with any questions or comments.
 
-Version 0.3.0, 30 August 2012
+Version 0.3.2, 16 November 2012
