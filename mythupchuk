@@ -632,33 +632,31 @@ sub hackit {
         return 'movies4men+1'                   if /^mov.*4men\+1$/;
         return 'movies4men'                     if /^mov.*4men$/;
         # BBC - special cases first, then simple conversion from '1' to 'one'
-        return 'bbconechannelislands'           if /^bbc1ci$/;
-        return 'bbconenortheast&cumbria'        if /^bbc1ne&c$/;
-        return 'bbconenorthwest'                if /^bbc1nwest$/;
-        return 'bbconeyorkshire'                if /^bbc1yorks$/;
-        return 'bbconesouthwest'                if /^bbc1swest$/;
-        return 'bbconewestmidlands'             if /^bbc1wmids$/;
-        return 'bbconesoutheast'                if /^bbc1seast$/;
-        return 'bbconeeastmidlands'             if /^bbc1emids$/;
-        return 'bbconeyorkshire&lincolnshire'   if /^bbc1yrks&lin$/;
-        return 'bbconenorthernireland'          if /^bbc1ni$/;
-        return "bbcone$opt{bbc1}"               if /^bbc1$/;        # BBC1 default region
-        return "bbcone$opt{bbc1}"               if /^bbcone$/;      # BBC ONE - default region
-        return "bbcone$1"                       if /^bbc1(.*)$/;    # BBC1 catch-all
-        return 'bbctwonorthernireland'          if /^bbc2ni$/;
+        return 'bbconechannelislands'           if /^bbc(?:1|one)ci$/;
+        return 'bbconenortheast&cumbria'        if /^bbc(?:1|one)ne&c$/;
+        return 'bbconenorthwest'                if /^bbc(?:1|one)nwest$/;
+        return 'bbconeyorkshire'                if /^bbc(?:1|one)yorks$/;
+        return 'bbconesouthwest'                if /^bbc(?:1|one)swest$/;
+        return 'bbconewestmidlands'             if /^bbc(?:1|one)wmids$/;
+        return 'bbconesoutheast'                if /^bbc(?:1|one)seast$/;
+        return 'bbconeeastmidlands'             if /^bbc(?:1|one)emids$/;
+        return 'bbconeyorkshire&lincolnshire'   if /^bbc(?:1|one)yrks&lin$/;
+        return 'bbconenorthernireland'          if /^bbc(?:1|one)ni$/;
+        return "bbcone$opt{bbc1}"               if /^bbc(?:1|one)$/;        # BBC1 default region
+        return "bbcone$1"                       if /^bbc(?:1|one)(.*)$/;    # BBC1 catch-all
+        return 'bbctwonorthernireland'          if /^bbc(?:2|two)ni$/;
         # (there are lots more bbc2's in the xmltv list)
-        return "bbctwo$opt{bbc2}"               if /^bbc2$/;        # BBC2 - default region
-        return "bbctwo$opt{bbc2}"               if /^bbctwo$/;      # BBC TWO - default region
-        return "bbctwo$1"                       if /^bbc2(.*)$/;    # BBC2 catch-all
+        return "bbctwo$opt{bbc2}"               if /^bbc(?:2|two)$/;        # BBC2 - default region
+        return "bbctwo$1"                       if /^bbc(?:2|two)(.*)$/;    # BBC2 catch-all
         # ITV 
-        return 'itv1channeltelevision'          if /^itvchannelis$/;
-        return 'itv1central'                    if /^itv1central/;  # central s|e|w|sw  all become just central
-        return 'itv1westcountry'                if /^itv1wcountry$/;
-        return 'itv1yorkshire'                  if /^itv1york/;     # yorks w|e both become just yorkshire
-        return 'itv1meridian'                   if /^itv1meridian/; # meridianse and merse both become meridian
-        return 'itv1anglia'                     if /^itv1anglia/;   # anglia e|w both become anglia
-        return "itv1$opt{itv}"                  if /^itv1$/;        # ITV1 - default region
-        return "itv1+1$opt{itv}"                if /^itv1+1$/;      # ITV1+1 - default region
+        return 'itvchanneltelevision'          if /^itv1?channelis$/;
+        return 'itvcentral'                    if /^itv1?central/;  # central s|e|w|sw  all become just central
+        return 'itvwestcountry'                if /^itv1?wcountry$/;
+        return 'itvyorkshire'                  if /^itv1?york/;     # yorks w|e both become just yorkshire
+        return 'itvmeridian'                   if /^itv1?meridian/; # meridianse and merse both become meridian
+        return 'itvanglia'                     if /^itv1?anglia/;   # anglia e|w both become anglia
+        return "itv$opt{itv}$1"                if /^itv1?((?:\+1)*)$/;      # ITV1+1 - default region
+        return "itv3+1freeview"                if /^itv3\+1$/;      # ITV3+1 - Freeview version
         # (there are also ITV channels with brackets in the xmltv name -- don't know what they're for)
         # Channel 4 -- single listing in xmltv, regions just have different adverts, so ignore any trailing region
         # (the tuning process just returns e.g. name='Channel 4' -- any regions require editing the channels file
@@ -678,7 +676,16 @@ sub hackit {
         return "stv$opt{stv}"                   if /^stv$/;         # STV defaults
         return "stv$opt{stv}+1"                 if /^stv+1$/;
 
-        # sadly, there are no radio listings on xmltv (but EIT provides them)
+		# Radio
+        return 'bbcradio1xtra'                  if /r1x$/;
+        return 'bbcradio4extra'                 if /radio4ex/;
+        return 'bbcradio4fm'                    if /radio4/;
+        return 'bbcradio5livesportsextra'       if /r5sx/;
+        return 'bbcradio5live'                  if /r5l/;
+        return 'bbcradio6music'                 if /6music/;
+        return 'bbcasiannetwork'                if /bbcasian/;
+        return 'bbcworldservice'                if /bbcworld/;
+        return 'talksportdab'                   if /talksport/;
     } 
     return $sqname;
 }
