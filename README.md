@@ -34,13 +34,13 @@ Matching channel names in the file against the xmltvid is more tricky: some of t
 are different, and a few trick have to used to make them line up.  Firstly, names are converted to lower case
 and all the spaces are removed.  Then the script applies a set of rules such as:
 
-    return 'bbconeyorkshire&lincolnshire'   if /^bbc1yrks&lin$/;
-    return 'bbconenorthernireland'          if /^bbc1ni$/;
-    return "bbcone$1"                       if /^bbc1(.*)$/;    # BBC1 catch-all
+	return 'bbconeyorkshire&lincolnshire'   if /^bbc1yrks&lin$/;
+	return 'bbconenorthernireland'          if /^bbc1ni$/;
+	return "bbcone$1"                       if /^bbc1(.*)$/;    # BBC1 catch-all
 
 Freeview channels sometimes don't include a region.  mythupchuk defaults to BBC 1 South,
 BBC 2 England, and ITV Meridian.  These defaults can be overridden using the `--bbc1`, `--bbc2`,
-and `--itv` options.
+`--itv`, `--c4`, `--c5`, and `--stv` options.
 
 The xmltvid information also contains the icon urls that are used to obtain channel icons.
 
@@ -49,15 +49,16 @@ the database: new channels are added to the end of the file, and channels that n
 are marked with a '#x' prefix which acts like a comment.  If a '#x'-commented channel reappears
 (after retuning for example), the prefix is removed.
 
-Note that the xmltvid and icon columns in the file are intend only to override the values from the tv\_grabber command: 
-these values are not changed in the file.
+Note that the xmltvid and icon columns in the file are intended 
+only to override the values from the tv\_grabber command: 
+these values are not changed in the file by running mythupchuk with the `--fileupdate` option.
 
-With the `--dbupdate` option, then channel name, number, callsign, and visible flag are updated in the 
+With the `--dbupdate` option, the channel name, number, callsign, and visible flag are updated in the 
 database from the values in the input file.  The xmltvid and icon fields for a channel are also 
 updated from the tv\_grabber information, unless overridden by entries in the input file.
 
-Options `--fileupdate` and `--dbupdate` can be used together, because different information is 
-being transferred in each direction.
+Options `--fileupdate` and `--dbupdate` can be used together.
+Database updates are done first, and then the file updates.
 
 An example channel file is included -- the one currently used by the author, which may not
 be to everyone's taste.  The channel numbering is non-standard, and the choice of which
@@ -92,16 +93,19 @@ Typical Usage
         mythupchuk --fileupdate channels.list
 
 where 'channels.list' is the name of a non-existent file that will be created.
-3. Edit 'channels.list' (or whatever you called it), to set the channel numbers to your liking.  
+
+3. Edit 'channels.list' (or whatever you called it), to set the channel numbers to your liking. 
 You can also change the callsigns and names, but make sure that the name will still match the 
 name of the corresponding xmltvid (see above).  Don't change the sourceid or serviceid column.  
 Set the 'visible' column to 1 for channels that you don't want in the listings.  
 Set the 'delete' column to 1 for channels that you want to get rid of completely.
+
 4. Run
 
         mythupchuk --dbupdate channels.list
 
 to check the file and see what changes would be made to the database.
+
 5. When you're happy with the results, run
 
         mythupchuk --dbupdate --commit channels.list

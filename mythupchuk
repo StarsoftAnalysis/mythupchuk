@@ -35,7 +35,7 @@ use MythTV;
 
 use feature 'unicode_strings';  # Because we're toying with strings that may be in unicode
 
-my $version = '0.3.2';
+my $version = '0.3.3';
 
 $| = 1; # instant output
 
