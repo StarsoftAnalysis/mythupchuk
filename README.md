@@ -153,6 +153,15 @@ mythupchuk runs the command like this:
 Note the use of `/dev/null` as the configuration file, which makes sure that it obtains details
 of all possible channels, ignoring `~/.xmltv/tv_grab_uk_rt.conf`.
 
+Contributors
+------------
+
+Thank you to the following people who have contributed to this project:
+
+* Stephen Robertson, for adding STV1, and improvements to the documentation (September 2012).
+* Roger Siddons, for some better channel name hacks (and other patches yet to be
+  incorporated (September 2014).
+
 Licence
 -------
 
