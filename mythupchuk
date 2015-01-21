@@ -35,7 +35,7 @@ use MythTV;
 
 use feature 'unicode_strings';  # Because we're toying with strings that may be in unicode
 
-my $version = '0.3.3';
+my $version = '0.3.4';
 
 $| = 1; # instant output
 
@@ -43,7 +43,7 @@ $| = 1; # instant output
 my %opt = ();
 # Defaults:
 $opt{renew}  = 1;
-$opt{icondir}    = '/mythtv/channels';
+$opt{icondir}    = '/home/mythtv/.mythtv/channels';
 $opt{geticons}   = 1;
 $opt{debug}      = 0;
 $opt{verbose}    = 0;
@@ -106,7 +106,7 @@ Options, with default values in brackets.
 --renew          Replace existing icon files with new ones [yes]
 --geticons       Download icon files [yes]
 --icondir <dir>  The writable directory to store icon files
-                  [/mythtv/channels]
+                  [/home/mythtv/.mythv/channels]
 --grabber <cmd>  Command to retrieve xmltv channel listings
                   [tv_grab_uk_rt --list-channels --config-file /dev/null 2> /dev/null]
 --bbc1 <reg>     \\                                                      / [south]

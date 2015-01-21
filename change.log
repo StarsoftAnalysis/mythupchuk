@@ -1,6 +1,12 @@
 Change log for mythupchuk
 =========================
 
+0.3.4	19/1/15
+
+Changed default value of --icondir from /mythtv/channels to
+/home/mythtv/.mythtv/channels
+Thanks to Roger Siddons dizygotheca@ntlworld.com.
+
 0.3.1	5/10/12
 
 Minor improvements -- thanks to stephengrobertson on github.
