@@ -547,8 +547,8 @@ sub updateChannel {
     my $db     = shift;     # original values from db (hashref)
     my $file   = shift;     # new values from file (hashref)
     my @columns = @_;   
-    print "uC: db      = " . join(' ', map {"$_='$db->{$_}'"}   sort keys $db  ) . "\n" if $opt{debug};
-    print "uC: file    = " . join(' ', map {"$_='$file->{$_}'"} sort keys $file) . "\n" if $opt{debug};
+    print "uC: db      = " . join(' ', map {"$_='$db->{$_}'"}   sort keys %{$db}  ) . "\n" if $opt{debug};
+    print "uC: file    = " . join(' ', map {"$_='$file->{$_}'"} sort keys %{$file}) . "\n" if $opt{debug};
     print "uC: columns = @columns\n" if $opt{debug};
     my %changes;
     foreach my $col (@columns) {
